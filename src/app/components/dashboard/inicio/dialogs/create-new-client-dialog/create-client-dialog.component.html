@@ -1,0 +1,190 @@
+
+<div *ngIf="!spinnerUpload">
+  <h1 mat-dialog-title>Crear Cliente</h1>
+<div mat-dialog-content>
+
+<!--  PANTALLA GRANDE   -->
+  <div *ngIf="!isSmallScreen">
+    <form [formGroup]="form" (ngSubmit)="ingresar()" style="display: block; justify-content: center; height: 100%; align-items: center;">
+
+      <div style="display: flex; width: 100%; ">
+        <mat-form-field>
+          <mat-label>Número de Cuenta</mat-label>
+          <input type="text" matInput formControlName="ncuenta">
+        </mat-form-field>
+
+        <mat-form-field style="margin-left: 20px;">
+          <mat-label>Contraseña</mat-label>
+          <input type="password" matInput formControlName="pass">
+        </mat-form-field>
+
+        <!-- Género -->
+        <div style="margin-bottom: 15px; margin-left: 10%;">
+          <mat-label>Genero</mat-label>
+          <mat-radio-group formControlName="gender">
+            <mat-radio-button color="primary" value="H">Hombre</mat-radio-button>
+            <mat-radio-button value="M">Mujer</mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+
+
+      <div class="div" style="display: inline-flex; width: 100%;">
+        <mat-form-field style="width: 40%; margin-right: 3px;">
+          <mat-label>Nombre</mat-label>
+          <input type="text" matInput autocomplete="off" autofocus formControlName="nombre">
+        </mat-form-field>
+
+        <mat-form-field style="width: 60%;">
+          <mat-label>Apellidos</mat-label>
+          <input type="text" matInput autocomplete="off" formControlName="apellidos">
+        </mat-form-field>
+      </div>
+
+      <div class="div" style="display: inline-flex; width: 100%;">
+        <mat-form-field style="width: 50%; margin-right: 3px;">
+          <mat-label>Número Telefónico</mat-label>
+          <input type="text" matInput autocomplete="off" formControlName="telefono">
+        </mat-form-field>
+        <mat-form-field style="width: 50%;">
+          <mat-label>Número de Emergencia</mat-label>
+          <input type="text" matInput autocomplete="off" formControlName="emergencia">
+        </mat-form-field>
+      </div>
+
+
+      <div class="div" style="display: inline-flex; width: 100%;">
+        <mat-form-field style="width: 50%; margin-right: 3px;">
+          <mat-label>Fecha de Pago</mat-label>
+          <input matInput [matDatepicker]="picker1" [max]="date"  formControlName="fechaPago">
+          <mat-hint>DD/MM/YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1 matDatepicker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field style="width: 50%;">
+          <div *ngIf="form.get('mensualidad')?.value !== 'Convenio'">
+            <mat-label>Tipo de mensualidad</mat-label>
+            <mat-select formControlName="mensualidad" name="mensualidad">
+              <mat-option *ngFor="let m of tipos" [value]="m">{{m}}</mat-option>
+            </mat-select>
+          </div>
+          <div *ngIf="form.get('mensualidad')?.value === 'Convenio'" style="display: flex; align-items: center;">
+            <div style="margin-right: auto;">
+              <mat-label>Precio del convenio</mat-label>
+              <input matInput formControlName="Precio" type="number" name="Precio">
+            </div>
+            <div>
+              <button mat-icon-button (click)="cancelarConvenio()" style="margin-top: 0px;">
+                <mat-icon>clear</mat-icon>
+              </button>
+            </div>
+          </div>
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
+
+
+<!--  PANTALLA PEQUEÑA  [(ngModel)]="ncuenta"  -->
+    <div *ngIf="isSmallScreen">
+
+      <form [formGroup]="form" (ngSubmit)="ingresar()" style="display: block; justify-content: center; height: 100%; align-items: center;">
+
+        <mat-form-field>
+          <mat-label>Número de Cuenta</mat-label>
+          <input type="text" matInput formControlName="ncuenta">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Contraseña</mat-label>
+          <input type="password" matInput formControlName="pass">
+        </mat-form-field>
+
+        <!-- Género -->
+        <div style="margin-bottom: 15px; display: block;">
+          <div><mat-label>Genero</mat-label></div>
+          <div><mat-radio-group formControlName="gender">
+            <mat-radio-button color="primary" value="H">Hombre</mat-radio-button>
+            <mat-radio-button value="M">Mujer</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        </div>
+
+        <mat-form-field>
+          <mat-label>Nombre</mat-label>
+          <input type="text" matInput autocomplete="off" autofocus formControlName="nombre">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Apellidos</mat-label>
+          <input type="text" matInput autocomplete="off" formControlName="apellidos">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Número Telefónico</mat-label>
+          <input type="text" matInput autocomplete="off" formControlName="telefono">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Número de Emergencia</mat-label>
+          <input type="text" matInput autocomplete="off" formControlName="emergencia">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Fecha de Pago</mat-label>
+          <input matInput [matDatepicker]="picker1" formControlName="fechaPago">
+          <mat-hint>DD/MM/YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field>
+          <div *ngIf="form.get('mensualidad')?.value !== 'Convenio'">
+            <mat-label>Tipo de mensualidad</mat-label>
+            <mat-select formControlName="mensualidad" name="mensualidad">
+              <mat-option *ngFor="let m of tipos" [value]="m">{{m}}</mat-option>
+            </mat-select>
+          </div>
+          <div *ngIf="form.get('mensualidad')?.value === 'Convenio'" style="display: flex; align-items: center;">
+            <div style="margin-right: auto;">
+              <mat-label>Precio del convenio</mat-label>
+              <input matInput formControlName="Precio" type="number" name="Precio">
+            </div>
+            <div>
+              <button matTooltip="Cancelar nuevo" mat-icon-button (click)="cancelarConvenio()" style="margin-top: 0px;">
+                <mat-icon>clear</mat-icon>
+              </button>
+            </div>
+          </div>
+        </mat-form-field>
+
+      </form>
+    </div>
+
+</div>
+<div mat-dialog-actions style="padding-left: 2rem;">
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+  <button type="submit" (click)="submitForm()" mat-flat-button color="primary" [disabled]="form.invalid" class="ancho boton">Aceptar</button>
+</div>
+</div>
+
+
+
+<!--PANTALLA NO GRANDE-->
+<div *ngIf="spinnerUpload && isSmallScreen" style="width: 250px; height: 300px; display: flex; align-items: center; justify-content: center;">
+  <mat-spinner diameter="50"></mat-spinner>
+</div>
+
+<div *ngIf="messageError !=  '' && isSmallScreen" style="width: 250px; height: 200px; display: flex; align-items: center; justify-content: center;">
+  <h3>{{messageError}}</h3>
+</div>
+
+<!--PANTALLA GRANDE-->
+<div *ngIf="spinnerUpload && !isSmallScreen" style="width: 400px; height: 300px; display: flex; align-items: center; justify-content: center;">
+  <mat-spinner diameter="50"></mat-spinner>
+</div>
+
+<div *ngIf="messageError !=  '' && !isSmallScreen" style="width: 400px; height: 300px; display: flex; align-items: center; justify-content: center;">
+  <h3>{{messageError}}</h3>
+</div>

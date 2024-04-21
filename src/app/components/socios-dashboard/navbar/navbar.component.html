@@ -1,0 +1,149 @@
+<div class="body">
+
+  <mat-drawer-container autosize>
+
+    <mat-drawer #drawer [mode]="mobileQuery.matches ? 'over' : 'side'" opened="true" style="position: fixed;">
+      <mat-nav-list>
+        <mat-list-item routerLink="/socios-SportHouse" (click)="title = 'Inicio'" style="height: 100px;">
+          <button mat-button routerLink="/socios-SportHouse" (click)="title = 'Inicio'" style="height: 100px;"><img src="/assets/img/gymSport.jpg" style="width: 80%; margin-top: 5px;" alt="Gym_Logo"></button>
+        </mat-list-item>
+        <div style="margin-left: 5%; margin-top: 5px; margin-right: 5%;">
+          <hr>
+        </div>
+
+        <mat-list-item  style="height: 60px; margin-bottom: 15px;" routerLink="/socios-SportHouse" (click)="title = 'Inicio'; setLastViewNav('Inicio')">
+          <button mat-button routerLink="/socios-SportHouse" (click)="title = 'Inicio'; setLastViewNav('Inicio')" [class.active]="title === 'Inicio'"><mat-icon>home</mat-icon>Inicio</button>
+        </mat-list-item>
+        <mat-list-item  style="height: 60px;" routerLink="/socios-SportHouse/rutinas" (click)="title = 'Rutinas'; setLastViewNav('Rutinas')">
+          <button mat-button routerLink="/socios-SportHouse/rutinas" (click)="title = 'Rutinas'; setLastViewNav('Rutinas')" [class.active]="title === 'Rutinas'"><mat-icon>dashboard_customize</mat-icon>Rutinas</button>
+        </mat-list-item>
+        <!--<mat-list-item  routerLink="/dashboard/rutinas" (click)="title = 'Rutinas'; setLastViewNav('Rutinas')">
+          <button mat-button routerLink="/dashboard/rutinas" (click)="title = 'Rutinas'; setLastViewNav('Rutinas')" [class.active]="title === 'Rutinas'"><mat-icon>fitness_center</mat-icon>Rutinas</button>
+        </mat-list-item>
+        <mat-list-item routerLink="/dashboard/usuarios-config" (click)="title = 'Usuarios'; setLastViewNav('Usuarios')">
+          <button mat-button routerLink="/dashboard/usuarios-config" (click)="title = 'Usuarios'; setLastViewNav('Usuarios')" [class.active]="title === 'Usuarios'"><mat-icon>settings_accessibility</mat-icon>Usuarios</button>
+        </mat-list-item>
+      -->
+        <mat-list-item style="display:flex; bottom: 0;  height: 80px; position: absolute; width: 100%;">
+          <div style="margin-left: 1%; margin-right: 1%; margin-bottom: 45%;">
+            <hr>
+          </div>
+          <div class="profile_content">
+            <div class="profile">
+              <div class="profile_details">
+                <div class="name_job">
+                  <div class="name">{{name}}</div>
+                  <div class="job">Socio</div>
+                </div>
+              </div>
+              <button id="logoutBt" (click)="logout()" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+                <mat-icon>logout</mat-icon>
+              </button>
+            </div>
+          </div>
+        </mat-list-item>
+
+      </mat-nav-list>
+    </mat-drawer>
+    <mat-drawer-content>
+      <ng-container>
+
+        <mat-toolbar [ngClass]="shouldApplyNewStyle && !isSmallScreen ? isSmallScreen ? 'new-style-class' : '' : '' " color="primary" class="green">
+          <button *ngIf="isMenuOpen && !isSmallScreen" (click)="drawer.toggle(); isMenuOpen = false" mat-icon-button class="example-icon title" aria-label="Example icon-button with menu icon">
+            <mat-icon>menu</mat-icon>
+          </button>
+          <button *ngIf="isSmallScreen" (click)="drawer.toggle()" mat-icon-button class="example-icon title" aria-label="Example icon-button with menu icon">
+            <mat-icon>menu</mat-icon>
+          </button>
+          <button *ngIf="!isMenuOpen && !isSmallScreen" matTooltip="Cerrar menú" style="color: #1d1b31;" (click)="drawer.toggle(); isMenuOpen = true" mat-icon-button class="example-icon title" aria-label="Example icon-button with menu icon">
+            <mat-icon>close</mat-icon>
+          </button>
+          <span class="title">{{title}}</span>
+        </mat-toolbar>
+
+        <div [ngClass]="{'slide-in-right': applyAnimation} " style="width: 100%;">
+          <!-- Tu contenido aquí -->
+          <router-outlet style="width: 100%;"></router-outlet>
+        </div>
+
+      </ng-container>
+    </mat-drawer-content>
+
+  </mat-drawer-container>
+<!--/////////////////////////////////////////////////////////////////////////////////////////-->
+
+
+
+  <!--
+  <div *ngIf="activeSidebar" class="sidebar">
+    <div class="logo_content">
+      <div class="logo">
+        <div class="logo_name">McFitness GYM</div>
+      </div>
+      <i class="bx_menu ico_but">
+        <button (click)="activeSidebar = false" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+          <mat-icon>menu</mat-icon>
+        </button>
+      </i>
+    </div>
+
+    <ul class="nav_list">
+      <li>
+        <button id="butt" mat-button class="links_name" routerLink="/dashboard"><mat-icon>home</mat-icon>Inicio</button>
+      </li>
+      <li>
+        <button id="butt" mat-button class="links_name" routerLink="/dashboard/usuarios-config"><mat-icon>settings_accessibility</mat-icon>Usuarios</button>
+      </li>
+    </ul>
+
+    <div class="profile_content">
+        <div class="profile">
+          <div class="profile_details">
+            <div class="name_job">
+              <div class="name">{{name}}</div>
+              <div class="job">Administrador</div>
+            </div>
+          </div>
+          <button id="logoutBt" (click)="logout()" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+            <mat-icon>logout</mat-icon>
+          </button>
+        </div>
+    </div>
+  </div>
+
+  <div *ngIf="!activeSidebar" class="sidebarUnactive">
+    <div class="logo_content">
+      <i class="bx_menu ico_but">
+        <button (click)="activeSidebar = true" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+          <mat-icon>menu</mat-icon>
+        </button>
+      </i>
+    </div>
+
+    <ul class="nav_list" style="margin-left: 0;">
+      <li style="margin-left: 0;">
+        <button id="butt" mat-button class="links_name" routerLink="/dashboard"><mat-icon>home</mat-icon></button>
+        <span class="tooltip">Inicio</span>
+      </li>
+      <li style="margin-left: 0;">
+        <button id="butt" mat-button class="links_name" routerLink="/dashboard/usuarios-config"><mat-icon>settings_accessibility</mat-icon></button>
+        <span class="tooltip">Usuarios</span>
+      </li>
+    </ul>
+
+    <div class="profile_content">
+        <div class="profile">
+          <button id="logoutBt" (click)="logout()" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+            <mat-icon>logout</mat-icon>
+          </button>
+        </div>
+    </div>
+  </div>
+
+  <div class="home_content">
+    <div class="text">HOLA</div>
+  </div>
+  -->
+
+
+</div>

@@ -1,0 +1,167 @@
+.mat-mdc-tab-group {
+  display: flex;
+  flex-direction: column;
+  max-width: 300%;
+  width: 174%;
+  left: 0;
+  margin-left: -25px;
+}
+
+/* add Buton */
+
+.addbutton:hover{
+  animation: addButton 0.3s forwards;
+}
+
+.addbutton:not(:hover) {
+  animation: addButtonReverse 0.3s forwards;
+}
+
+.addbutton{
+  background: #16ad43;
+  color: #d4d4d4;
+  height: 50px;
+  width: 50px;
+  font-size: x-large;
+  border: none;
+  border-radius: 100px;
+}
+
+.Closeaddbutton{
+  background: #ad5a16;
+  color: #f0b9b9;
+  height: 50px;
+  width: 50px;
+  font-size: x-large;
+  border: none;
+  border-radius: 100px;
+}
+
+@keyframes addButton {
+  from{
+    background: #16ad43;
+    height: 50px;
+    width: 50px;
+    font-size: x-large;
+    border: none;
+    border-radius: 100px;
+  }
+  to {
+    background: #0de24d;
+    color: #ffffff;
+    box-shadow: 0 0 50px 5px #0cf050;
+  }
+}
+
+@keyframes addButtonReverse {
+  from{
+    background: #0de24d;
+    color: #ffffff;
+    box-shadow: 0 0 50px 5px #0cf050;
+  }
+  to {
+    background: #16ad43;
+    height: 50px;
+    width: 50px;
+    font-size: x-large;
+    border: none;
+    border-radius: 100px;
+  }
+}
+
+.list{
+  border: solid 1px #ccc;
+  background: #f1f1f169;
+  backdrop-filter: blur(20px);
+  color: rgba(0, 0, 0, 0.87);
+  box-sizing: border-box;
+  padding: 10px;
+  border-radius: 4px;
+  transition: box-shadow 200ms cubic-bezier(0, 0, 0.2, 1);
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.103),
+              0 2px 2px 0 rgba(0, 0, 0, 0.103),
+              0 1px 5px 0 rgba(0, 0, 0, 0.101);
+}
+
+.item{
+  border: solid 1px #ccccccb2;
+  min-height: 15px;
+  background: #ffffffa2;
+  backdrop-filter: blur(20px);
+  color: rgba(0, 0, 0, 0.87);
+  padding: 10px;
+  border-radius: 4px;
+  border-color: none;
+}
+
+.title{
+  border: solid 1px #ccccccb2;
+  min-height: 15px;
+  background: #21910a3d;
+  backdrop-filter: blur(20px);
+  color: rgba(0, 0, 0, 0.87);
+  padding: 10px;
+  padding: 15px;
+  border-radius: 4px;
+  border-color: none;
+}
+
+.exercise-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 40%;
+  background-color: #f4f8f4;
+  -webkit-box-shadow: -6px 16px 26px 0px rgba(153,153,153,0.57);
+  -moz-box-shadow: -6px 16px 26px 0px rgba(153,153,153,0.57);
+  box-shadow: -6px 16px 26px 0px rgba(153,153,153,0.57);
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.exercise-column {
+  width: 50%;
+  box-sizing: border-box;
+}
+
+.odd {
+  margin-right: 0;
+}
+
+:host {
+  display: block;
+}
+
+.vontaiter-info{
+  margin: 5px;
+}
+
+.imgageProfile{
+  border-radius: 4%;
+  margin-top: 0px;
+}
+
+.skeleton{
+  opacity: .7;
+  animation: skeletonLoading 1s linear infinite alternate;
+}
+
+@keyframes skeletonLoading {
+  0%{
+    background-color: hsl(200, 20%, 70%);
+  }
+
+  100%{
+    background-color: hsl(200, 20%, 95%);
+  }
+}
+
+.skeleton-text{
+  width: 100%;
+  height: 1rem;
+  margin-bottom: .25rem;
+  border-radius: .125rem;
+}
+
+.skeleton-text:last-child{
+  margin-bottom: 0;
+}

@@ -1,0 +1,8 @@
+::ng-deep mat-radio-button[value="H"] .mat-radio-container {
+  background-color: blue; /* Cambia el fondo a azul */
+}
+
+/* Estilo para el mat-radio-button con valor "M" (Mujer) */
+::ng-deep mat-radio-button[value="M"] .mat-radio-container {
+  background-color: pink; /* Cambia el fondo a rosa */
+}

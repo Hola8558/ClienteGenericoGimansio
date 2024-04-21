@@ -1,0 +1,65 @@
+
+<div *ngIf="fakebenchpres" class="absoluteChager">
+  <div style="display: block;">
+    <div style="margin-left: -30px;"><img src="../../../assets/img/gymSport.jpg" width="120%"></div>
+    <div><img *ngIf="loanding" src="../../../assets/img/S9CK.gif"></div>
+    <div style="color: rgba(19, 68, 19, 0.767); font-weight: 700; font-size: larger; margin-bottom: 15px; display: flex; justify-content: center; align-items: center;">Cargando...</div>
+    <div><mat-progress-bar mode="indeterminate"></mat-progress-bar></div>
+  </div>
+</div>
+
+<div class="body">
+
+  <div class="login" *ngIf="loginMode === true">
+
+    <form *ngIf="!loanding" [formGroup]="formSocio" (ngSubmit)="ingresarSocio()">
+      <img src="../../../assets/img/chica-deportiva.png" width="50%">
+      <h1>LogIn</h1>
+
+      <mat-form-field class="ancho">
+        <mat-label>Número de Socio</mat-label>
+        <input type="text" matInput autocomplete="off" formControlName="usuario">
+      </mat-form-field>
+
+      <mat-form-field class="ancho">
+        <mat-label>Contraseña</mat-label>
+        <input type="password" matInput autocomplete="off" formControlName="password">
+      </mat-form-field>
+
+      <button type="submit" mat-flat-button color="primary" [disabled]="formSocio.invalid" class="ancho boton">Ingresar</button>
+    </form>
+
+    <div style="margin-top: 25px;"><span *ngIf="!loanding" class="enlace" (click)="loginMode = false">¿Eres Administrador? Da click aquí</span></div>
+
+  </div>
+
+
+
+  <div class="login" *ngIf="loginMode === false">
+
+    <mat-spinner *ngIf="loanding" class="spinner" diameter="50"></mat-spinner>
+
+    <form *ngIf="!loanding" [formGroup]="form" (ngSubmit)="ingresarAdmin()">
+      <img src="../../../assets/img/chica-deportiva.png" width="50%">
+      <h1>LogIn</h1>
+
+      <mat-form-field class="ancho">
+        <mat-label>Usuario</mat-label>
+        <input type="text" matInput autocomplete="off" formControlName="usuario">
+      </mat-form-field>
+
+      <mat-form-field class="ancho">
+        <mat-label>Contraseña</mat-label>
+        <input type="password" matInput autocomplete="off" formControlName="password">
+      </mat-form-field>
+
+      <br>
+      <button type="submit" mat-flat-button color="primary" [disabled]="form.invalid" class="ancho boton">Ingresar</button>
+    </form>
+
+    <div style="margin-top: 25px;"><span *ngIf="!loanding" class="enlace" (click)="loginMode = true">¿Eres Socio? Da click aquí</span></div>
+  </div>
+
+</div>
+
+

@@ -1,0 +1,130 @@
+<div style="padding: 15px;">
+  <div *ngIf="client.ncuenta === ''" style="width: 100%; display: block; justify-content: center;">
+
+    <div style="width: 100%; display: block; justify-content: center; align-items: center;">
+
+      <div style="width: 100%; justify-content: center; align-items: center; display: flex; margin-bottom: 15px;">
+        <img class="imgageProfile skeleton" style="margin-top: 25px;">
+      </div>
+
+      <div class="skeleton skeleton-text" style="width: 30%; margin-top: 15px; margin-left: 35%;"></div>
+      <div class="skeleton skeleton-text" style="width: 50%; margin-left: 25%;"></div>
+      <div class="skeleton skeleton-text" style="width: 70%; margin-left: 15%;"></div>
+
+      <div style="width: 94%; display: flex; align-items: center; margin-top: 20px; margin-left: 3%;">
+        <div class="skeleton skeleton-text" style="width: 40%; margin-right: 5px;"></div>
+        <div class="skeleton skeleton-text" style="width: 55%;"></div>
+      </div>
+
+      <div style="width: 94%; display: flex; align-items: center; margin-left: 3%;">
+        <div class="skeleton skeleton-text" style="width: 45%; margin-right: 5px;"></div>
+        <div class="skeleton skeleton-text" style="width: 50%;"></div>
+      </div>
+
+    </div>
+
+    <div style="width: 100%; display: block;">
+
+      <div style="width: 94%; display: flex; align-items: center; margin-left: 3%; margin-top: 15px;">
+        <div class="skeleton skeleton-text" style="width: 35%; margin-right: 5px;"></div>
+        <div class="skeleton skeleton-text" style="width: 65%;"></div>
+      </div>
+
+      <div style="width: 94%; display: flex; align-items: center; margin-left: 3%;">
+        <div class="skeleton skeleton-text" style="width: 35%; margin-right: 5px;"></div>
+        <div class="skeleton skeleton-text" style="width: 65%;"></div>
+      </div>
+
+
+      <div style="width: 94%; display: flex; align-items: center; margin-left: 3%;">
+        <div class="skeleton skeleton-text" style="width: 35%; margin-right: 5px;"></div>
+        <div class="skeleton skeleton-text" style="width: 65%;"></div>
+      </div>
+
+    </div>
+
+    <div style="width: 100%;display: flex;flex-direction: column; justify-content: center; margin-top: 60px; ">
+      <div class="skeleton skeleton-text" style="width: 40%; margin-bottom: 10px;"></div>
+      <div class="skeleton" style="width: 100%; height: 250px;"></div>
+    </div>
+
+  </div>
+
+  <div *ngIf="client.ncuenta != '' " style="width: 100%; height: fit-content; display: block; justify-content: center;">
+
+    <div style="width: 100%; display: block; justify-content: center; align-items: center;">
+      <div style="display: flex; width: 100%; justify-content: center;">
+        <img class="imgageProfile" style="margin-top: 25px; margin-bottom: 15px; width: 80%;"
+        [src]="base64Image ? base64Image : '/assets/img/placeHolder_profile.png'"
+        alt="Perfil image">
+      </div>
+      <!-- https://png.pngtree.com/png-vector/20231019/ourlarge/pngtree-happy-smile-cat-images-png-imag e_10276665.png -->
+      <!-- https://img.freepik.com/vector-premium/dibujos-animados-lindo-gato-llorando-vector_39961-2581.jpg?w=2000 -->
+      <div style="width: 100%; display: flex; justify-content: center; margin-bottom: 20px;">
+        <div style="display: block; justify-content: center;">
+          <div style="font-size: larger;"><strong>Número de Cuenta:</strong></div>
+          <div style="margin-left: 30%; font-size: larger;">{{client.ncuenta}}</div>
+        </div>
+      </div>
+
+      <div style="width: 100%; display: flex; justify-content: center; align-items: center;">
+        <div style="display: block;">
+          <div style="font-size: larger; margin-left: 30%;"><strong>Nombre:</strong></div>
+          <div style="font-size: larger;">{{client.nombre}} {{client.apellidos}}</div>
+        </div>
+      </div>
+
+      <div style="width: 100%; display: flex; align-items: center; justify-content: center; margin-top: 40px; margin-bottom: 15px; font-size: larger;">
+        <div style="margin-right: 10px;"><strong>Teléfono: </strong></div>
+        <div *ngIf="client.numeroCelular != ''">{{client.numeroCelular}}</div>
+        <div *ngIf="client.numeroCelular === ''"><i>Sin registro</i></div>
+      </div>
+
+      <div style="width: 100%; display: flex; align-items: center; justify-content: center; margin-top: 40px; margin-bottom: 15px; font-size: larger;">
+        <div style="display: block; margin-right: 10px;">
+          <div><strong>Teléfono de </strong></div>
+          <div><strong>emergencia: </strong></div>
+        </div>
+        <div *ngIf="client.numeroCelularEmergencia != ''">{{client.numeroCelularEmergencia}}</div>
+        <div *ngIf="client.numeroCelularEmergencia === ''"><i>Sin registro</i></div>
+      </div>
+
+    </div>
+
+    <div style="width: 100%; display: block; margin-top: 20px;">
+
+      <div style="width: 100%; display: flex; align-items: center; justify-content: center; font-size: large;">
+        <div style="font-size: small; margin-right: 10px;"><strong>Último pago:</strong></div>
+        <div>{{client.ultimoPago}}</div>
+      </div>
+
+      <div style="width: 100%; display: flex; align-items: center; justify-content: center; margin-top: 15px; font-size: larger;">
+        <div style="display: block; margin-right: 10px; font-size: small;">
+          <div><strong>Fecha de </strong></div>
+          <div><strong>Vencimiento: </strong></div>
+        </div>
+        <div>{{client.fechaVencimiento}}</div>
+      </div>
+
+      <div style="width: 100%; display: flex; align-items: center; justify-content: center; margin-top: 15px;">
+        <div style="margin-right: 15px;"><strong>Mensualidad: </strong></div>
+        <div *ngIf="client.tipoMensualidad.split('-./()/.-')[0] != 'Convenio' ">{{client.tipoMensualidad}}</div>
+        <div *ngIf="client.tipoMensualidad.split('-./()/.-')[0] === 'Convenio' ">Convenio - <strong>${{client.tipoMensualidad.split('-./()/.-')[1]}}</strong></div>
+      </div>
+
+    </div>
+
+    <div style="width: 100%;display: flex;flex-direction: column; justify-content: center; margin-top: 60px; ">
+      <div style="width: 45%; margin-bottom: 10px;">
+        <span><strong>Días de Asistencia</strong></span>
+      </div>
+    </div>
+
+    <div style="display: block; width: 100%; margin-bottom: 20px;">
+      <div style="width: 100%; height: 250px; margin-bottom: 50px;">
+        <module-calendar-component [_id]="client._id"></module-calendar-component>
+      </div>
+
+    <!--
+     -->
+  </div>

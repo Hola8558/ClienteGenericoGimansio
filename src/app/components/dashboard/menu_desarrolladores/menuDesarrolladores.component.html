@@ -1,0 +1,217 @@
+<div [ngClass]="{'slide-in-right': applyAnimationToRigth}">
+
+  <!--    PANTALLA GRANDE     -->
+  <!--    PANTALLA GRANDE     -->
+  <!--    PANTALLA GRANDE     -->
+  <div *ngIf="!isSmallScreen" style="padding: 20px; display: block;">
+
+    <div style="display: flex; justify-content: space-between;">
+      <button mat-fab class="button" (click)="this.router.navigate(['/dashboard'], {relativeTo:this.route})"  matTooltip="Volver al inicio"  aria-label="Example icon button with a home icon">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+
+      <div style="display: block;">
+        <span style="color: rgb(129, 129, 128);">Filtros:</span>
+        <div style="display: flex; flex: 1;">
+          <mat-chip-listbox style="width: 340px; justify-content: end;" aria-label="Fish selection" multiple>
+            <mat-chip-option selected="true" (click)="onChipSelectionChange(0)" color="primary">Vigente</mat-chip-option>
+            <mat-chip-option selected="true" (click)="onChipSelectionChange(1)" color="warn">De baja</mat-chip-option>
+            <mat-chip-option selected="true" (click)="onChipSelectionChange(2)" color="accent">1 semana</mat-chip-option>
+          </mat-chip-listbox>
+        </div>
+        <div style="display: flex; flex: 1;">
+          <mat-chip-listbox style="width: 350px; justify-content: end;" aria-label="Fish selection" multiple>
+            <mat-chip-option selected="true" (click)="onChipSelectionChange(3)" color="primary">Estudiante</mat-chip-option>
+            <mat-chip-option selected="true" (click)="onChipSelectionChange(4)" color="warn">General</mat-chip-option>
+            <mat-chip-option selected="true" (click)="onChipSelectionChange(5)" color="accent">Convenio</mat-chip-option>
+          </mat-chip-listbox>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="margin-top: 15px;">
+      <mat-form-field style="width: 80%; margin-left: 2%;">
+        <mat-label>Buscar</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+      </mat-form-field>
+
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+        <!-- Position Column -->
+        <ng-container matColumnDef=" " style="width: 2px;">
+          <th mat-header-cell *matHeaderCellDef style="width: 2%;"></th>
+          <td mat-cell (click)="sendDataViewClient(element._id)" *matCellDef="let element" style="width: 2px;" [style.border-left]="getColor(element)" class="rounded-left" >  </td>
+        </ng-container>
+
+        <!-- Position Column   [style.background-color]="getColor(element)" -->
+        <ng-container matColumnDef="Número de Cuenta">
+          <th mat-header-cell *matHeaderCellDef style="width: 15%;"> Número de Cuenta </th>
+          <td mat-cell (click)="sendDataViewClient(element._id)" *matCellDef="let element" style="margin-bottom: 3px;"> {{element.ncuenta}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="Foto">
+          <th mat-header-cell *matHeaderCellDef style="width: 5%;"> Foto </th>
+          <td mat-cell (click)="sendDataViewClient(element._id)" *matCellDef="let element" style="margin-bottom: 3px;">
+            <img style="width: 35px;" [src]="element.profileImg ? element.profileImg : '/assets/img/placeHolder_profile.png'"
+            alt="Perfil image"/>
+          </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="Nombre">
+          <th mat-header-cell *matHeaderCellDef style="width: 23%;"> Nombre </th>
+          <td mat-cell (click)="sendDataViewClient(element._id)" *matCellDef="let element" style="margin-bottom: 3px;"> {{element.nombre}} {{element.apellidos}} </td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="Información">
+          <th mat-header-cell *matHeaderCellDef style="width: 35%;"> Información </th>
+          <td mat-cell (click)="sendDataViewClient(element._id)" *matCellDef="let element" style="margin-bottom: 3px;">
+            <div style="display: block; margin-top: 7px;">
+              <span *ngIf="element.tipoMensualidad.split('-./()/.-')[0] != 'Convenio' " style="display: block; margin-bottom: 5px;">
+                Mensualidad: <strong>{{element.tipoMensualidad}}</strong>
+              </span>
+              <span *ngIf="element.tipoMensualidad.split('-./()/.-')[0] === 'Convenio' " style="display: block; margin-bottom: 5px;">
+                Mensualidad: Convenio - <strong>${{element.tipoMensualidad.split('-./()/.-')[1]}}</strong>
+              </span>
+
+              <span *ngIf="element.numeroCelular" style="display: block; margin-bottom: 5px;">
+                Celular: <strong>{{element.numeroCelular}}</strong>
+              </span>
+              <span *ngIf="!element.numeroCelular" style="display: block; margin-bottom: 5px;">
+                Celular: <i>Sin registro</i>
+              </span>
+              <button (click)="renovarMembresia(element)" mat-button style="background: #dc143c5b;color: white; margin-bottom: 15px; padding-top: 5px; margin-bottom: 5px;" *ngIf="getColor(element) === '9px solid #DC143C' " >Renovar membresía</button>
+            </div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Opciones">
+          <th mat-header-cell *matHeaderCellDef style="width: 20%;"> Opciones </th>
+          <td mat-cell (click)="sendDataViewClient(element._id)" *matCellDef="let element" style="margin-bottom: 3px;">
+            <button style="z-index: 0; color: rgb(17, 37, 5);" mat-button (click)="editarCliente($event,element._id)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button style="z-index: 0; color: rgb(17, 37, 5);" mat-button (click)="deleteCliente($event,element._id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        <!-- Row shown when there is no matching data. -->
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell back" colspan="6">No se han encontrado clientes</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+    <!--    PANTALLA PEQUEÑA     -->
+    <!--    PANTALLA PEQUEÑA     -->
+    <!--    PANTALLA PEQUEÑA     -->
+    <!--    PANTALLA PEQUEÑA     -->
+    <div *ngIf="isSmallScreen" style="display: block;">
+
+
+      <button style="margin: 20px;" mat-fab class="button" (click)="this.router.navigate(['/dashboard'], {relativeTo:this.route})"  matTooltip="Volver al inicio"  aria-label="Example icon button with a home icon">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+
+      <div style="display: block;">
+        <span style="color: rgb(129, 129, 128); margin: 15px;">Filtros:</span>
+        <div style="display: flex; flex: 1;">
+          <mat-chip-listbox style="width: 340px; justify-content: end;" aria-label="Fish selection" multiple>
+            <mat-chip-option selected="true" (click)="onChipSelectionChange(0)" color="primary">Vigente</mat-chip-option>
+            <mat-chip-option selected="true" (click)="onChipSelectionChange(1)" color="warn">De baja</mat-chip-option>
+            <mat-chip-option selected="true" (click)="onChipSelectionChange(2)" color="accent">1 semana</mat-chip-option>
+          </mat-chip-listbox>
+        </div>
+        <div style="display: flex; flex: 1;">
+          <mat-chip-listbox style="width: 350px; justify-content: end;" aria-label="Fish selection" multiple>
+            <mat-chip-option selected="true" (click)="onChipSelectionChange(3)" color="primary">Estudiante</mat-chip-option>
+            <mat-chip-option selected="true" (click)="onChipSelectionChange(4)" color="warn">General</mat-chip-option>
+            <mat-chip-option selected="true" (click)="onChipSelectionChange(5)" color="accent">Convenio</mat-chip-option>
+          </mat-chip-listbox>
+        </div>
+      </div>
+
+
+
+    <div style="margin-top: 15px;">
+      <mat-form-field style="width: 98%; margin-left: 2%;">
+        <mat-label>Buscar</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+      </mat-form-field>
+
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style=" justify-content: center">
+
+        <!-- Position Column -->
+        <ng-container matColumnDef=" " style="width: 2px;">
+          <th mat-header-cell *matHeaderCellDef style="width: 2%;"></th>
+          <td mat-cell (click)="sendDataViewClient(element._id)" *matCellDef="let element" style="width: 2px;" [style.border-left]="getColor(element)" class="rounded-left" >  </td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="Información" style=" justify-content: center">
+          <th mat-header-cell *matHeaderCellDef style="width: 35%;"> Información </th>
+          <td mat-cell (click)="sendDataViewClient(element._id)" *matCellDef="let element" style="margin-bottom: 3px;">
+            <div style="display: block; text-align: center;">
+              <img *ngIf="element.profileImg" style="width:70px; margin-left: 20%; margin-right: 30px;" [src]="element.profileImg ? element.profileImg : '/assets/img/placeHolder_profile.png'"
+              alt="Perfil image"/>
+              <div>
+                <span *ngIf="!element.profileImg" style="font-size: small;"><i><strong>Sin foto</strong></i></span>
+              </div>
+              <div>
+                <span style="font-size: medium;">{{element.nombre}} {{element.apellidos}}</span>
+              </div>
+              <div style="display: block; margin-top: 7px;">
+                <span *ngIf="element.tipoMensualidad.split('-./()/.-')[0] != 'Convenio' " style="display: block; margin-bottom: 5px;">
+                  Mensualidad: <strong>{{element.tipoMensualidad}}</strong>
+                </span>
+                <span *ngIf="element.tipoMensualidad.split('-./()/.-')[0] === 'Convenio' " style="display: block; margin-bottom: 5px;">
+                  Mensualidad: Convenio - <strong>${{element.tipoMensualidad.split('-./()/.-')[1]}}</strong>
+                </span>
+
+                <span *ngIf="element.numeroCelular" style="display: block; margin-bottom: 5px;">
+                  Celular: <strong>{{element.numeroCelular}}</strong>
+                </span>
+                <span *ngIf="!element.numeroCelular" style="display: block; margin-bottom: 5px;">
+                  Celular: <i>Sin registro</i>
+                </span>
+                <button (click)="renovarMembresia(element)" mat-button style="background: #dc143c5b;color: white; margin-bottom: 15px; padding-top: 5px; margin-bottom: 5px;" *ngIf="getColor(element) === '9px solid #DC143C' " >Renovar membresía</button>
+              </div>
+
+            </div>
+
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Opciones">
+          <th mat-header-cell *matHeaderCellDef style="width: 20%;"> Opciones </th>
+          <td mat-cell (click)="sendDataViewClient(element._id)" *matCellDef="let element" style="margin-bottom: 3px;">
+            <button style="z-index: 0; color: rgb(17, 37, 5);" mat-button (click)="editarCliente($event,element._id)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button style="z-index: 0; color: rgb(17, 37, 5); margin-top: 30%;" mat-button (click)="deleteCliente($event,element._id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsSmall"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsSmall;"></tr>
+
+        <!-- Row shown when there is no matching data. -->
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell back" colspan="6">No se han encontrado clientes</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+</div>

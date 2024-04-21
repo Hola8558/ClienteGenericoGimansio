@@ -1,0 +1,560 @@
+<!-- <app-create-rutina-fake-dialog *ngIf="shoeMenuNew == true" style="height: 100%; width: 100%;"></app-create-rutina-fake-dialog>  -->
+
+
+<!-- PANTALLA GRANDE -->
+<div *ngIf="!isSmallScreen" style="margin: 2%; display: flex; align-items: center; justify-content: center;">
+
+  <div style="display: block; width: 100%;">
+    <!-- AGREGAR
+    <div style="width: 100%; display: flex; align-items: center; justify-content: center;">
+      <div style="display: block; width: 110px; align-items: center; justify-content: center;" *ngIf="!deletingRutines && !startMode">
+        <label style="font-size: small; color: rgb(172, 172, 172);">Crear rutina</label>
+        <button class="addbutton" matTooltip="Crear rutina" color="secondary" style="margin-left: 10px; margin-top: 10px;" (click)="changeShowNewRutina()"><mat-icon style="margin-top: 5px;">add</mat-icon></button>
+      </div>
+      -->
+
+      <!-- ELIMINAR
+      <div style="display: block; width: 110px; align-items: center; justify-content: center;" *ngIf="!deletingRutines && listaRutinas.length > 0 && !startMode">
+        <label style="font-size: small; color: rgb(172, 172, 172);">Eliminar Rutina</label>
+        <button class="deleteButton" matTooltip="Eliminar rutina" color="secondary" style="margin-left: 10px; margin-top: 10px;" (click)="deletingRutines = true"><mat-icon style="margin-top: 5px;">close</mat-icon></button>
+      </div>
+      <div style="display: block; width: 110px;margin-right: 30px; align-items: center; justify-content: center;" *ngIf="deletingRutines && !startMode">
+        <label style="font-size: small; color: rgb(172, 172, 172);">Aceptar eliminar</label>
+        <button class="deleteButton" matTooltip="Aceptar" color="secondary" style="margin-left: 10px; margin-top: 10px;" (click)="deleteForeverAll()"><mat-icon style="margin-top: 5px;">delete_forever</mat-icon></button>
+      </div>
+      <div style="display: block; width: 110px; align-items: center; justify-content: center;" *ngIf="deletingRutines && !startMode">
+        <label style="font-size: small; color: rgb(172, 172, 172);">Cancelar</label>
+        <button class="cancelButnoDelete" matTooltip="Cancelar" color="secondary" style="margin-left: 10px; margin-top: 10px;" (click)="calcelarDelete()"><mat-icon style="margin-top: 5px;">arrow_back</mat-icon></button>
+      </div>
+      -->
+
+      <!-- FAVORITOS
+      <div style="display: block; width: 110px; align-items: center; justify-content: center;" *ngIf="!startMode && !deletingRutines && (listaRutinas.length > 0 || listStarred.length > 0)">
+        <label style="font-size: small; color: rgb(172, 172, 172);">Agregar favoritos</label>
+        <button class="starButton" matTooltip="Agregar favoritos" color="secondary" style="margin-left: 10px; margin-top: 10px;" (click)="starToStarringMode()"><mat-icon style="margin-top: 5px;">star</mat-icon></button>
+      </div>
+      <div style="display: block; margin-right: 15px; width: 110px; align-items: center; justify-content: center;" *ngIf="startMode && !deletingRutines">
+        <label style="font-size: small; color: rgb(172, 172, 172);">Aceptar favoritos</label>
+        <button class="starButton" matTooltip="Aceptar" color="secondary" style="margin-left: 10px; margin-top: 10px;" (click)="addStarRutinas()"><mat-icon style="margin-top: 5px;">done</mat-icon></button>
+      </div>
+      <div style="display: block; width: 110px; align-items: center; justify-content: center;" *ngIf="startMode && !deletingRutines">
+        <label style="font-size: small; color: rgb(172, 172, 172);">Cancelar</label>
+        <button class="starButtonCancel" matTooltip="Cancelar" color="secondary" style="margin-left: 10px; margin-top: 10px;" (click)="calcelarDelete()"><mat-icon style="margin-top: 5px; margin-left: 2px;">cancel</mat-icon></button>
+      </div>
+
+    </div>-->
+
+    <div style="width: 100%; display: flex; align-items: center; justify-content: center;">
+      <div class="list" style="margin-top: 3%; width: 98%; min-height: 200px; display: block; align-items: center; justify-content: center;">
+
+        <!--      LISTA FAVORITOS         -->
+
+        <div *ngIf="listStarred.length > 0"
+          style="display: block; justify-content: center; align-items: center; margin-bottom: 40px; margin-top: 20px;
+          width: 100%;">
+
+          <span style="justify-content: center; align-items: center; display: flex; padding: 8px; border-radius: 8px; background-color: #ffff004b;"><mat-icon style="margin-right: 15px;">star</mat-icon>  Predeterminados</span>
+
+          <div class="starredList">
+
+            <mat-accordion style="width: 95%;">
+              <mat-expansion-panel hideToggle *ngFor="let rutina of listStarred" style="width: 100%; "  (opened)="panelOpenState = true" [style.background-color]="finInDeletingList(rutina)? '#ff5555ab': finInStartingList(rutina)? '#ffde44' : '' "
+                                   (closed)="panelOpenState = false" [disabled]="deletingRutines || startMode" (click)="putListDelete(rutina)">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    {{rutina.name}}
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    <div style="display: flex; justify-content: space-between; width: 100%;">
+                      <div>{{panelOpenState ? '' : getResumeExcecise(rutina.ejercicios) }}</div>
+                      <div><button mat-button (click)="editRutina(rutina,$event)"> <mat-icon>edit</mat-icon> Editar </button></div>
+                    </div>
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+
+                <div *ngFor="let item of rutina.ejercicios; let index = index; let odd = odd" [style.background-color]="item.color? item.color : ''" style="margin-bottom: 15px;" class="exercise-container">
+                  <div class="exercise-column" style="width: 50%;" [class.odd]="odd" *ngIf="getExcercise(item) && getExcercise(item).nombre != 'c1ecu1t029092005'">
+                    <div style="width: 100%; display: flex; position: relative; justify-content: start; align-items: center;">
+                      <div style="display: flex; width: 40%; height: 80px; margin-bottom: 10px; padding: 0; z-index: 2;" class="imgCardAnim">
+                        <img [src]="getExcercise(item)? getExcercise(item).url : '/assets/img/no_photo.jpg'" alt="Imagen del ejercicio" style="width: 100%; height: 100%; z-index: 1; border-radius: 5px;" />
+                      </div>
+
+                      <div style="display: flex; position: absolute; right: 20%; top: 30%; margin-bottom: 10px; width: 20%;">
+                        <span style="width: 100%; font-size: larger;">
+                          <strong>
+                            {{getExcercise(item).nombre || ''}}
+                          </strong>
+                        </span>
+                      </div>
+
+                      <div style="display: block; min-width: 50%; width: fit-content; position: absolute; left: 130%; height: 80px; margin-top: 10px; padding: 0; justify-content: center; align-items: center; z-index: 1;">
+                        <div style="padding: 5px; margin-bottom: 15px; background-color: rgba(255, 242, 123, 0.733); border-radius: 8px;"><span class="form__label">Series: <strong>{{item.series}}</strong></span></div>
+                        <div style="padding: 5px; background-color: rgba(255, 242, 123, 0.733); border-radius: 8px;"><span class="form__label">Reps: <strong>{{item.reps}}</strong></span></div>
+                      </div>
+                    </div>
+
+                    <div style="position: relative; bottom: 0; left: 0;">
+                      <div style="z-index: 2; width: 30px; padding-top: 15px;padding-left: 10px; justify-content: center; align-items: center; height: 30px; border-radius: 0 50px 0 5px; position: absolute; bottom: 0; left: 0;" [style.background-color]="'rgba(61, 173, 39, 0.856)'">
+                        <span style="color: #ebebeb;font-weight: 900;">{{index+1}}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- CIRCUITO -->
+                  <div style="width: 100%; border-radius: 8px;" [class.odd]="odd" *ngIf="!(getExcercise(item) && getExcercise(item).nombre != 'c1ecu1t029092005')">
+                    <div style="width: 100%; height: fit-content; display: block; position: relative; justify-content: start; align-items: center;">
+                      <div style="margin-left: 15px; margin-bottom: 15px;">
+                        <span><strong>Series del circuito : </strong> {{item.ciruitoseries}} </span>
+                      </div>
+                      <div *ngFor="let exerCiruito of isPropertyArray(item); let cir = index" style="padding: 10px; border-radius: 8px; height: 100px; width: 90%; display: flex; margin-bottom: 15px; align-items: center; justify-content: left; margin-top: 10px;" [style.background-color]="item.color? item.color : 'rgba(61, 173, 39, 0.856)'">
+                        <div style="display: flex; width: 25%; height: 80px; margin-bottom: 10px; padding: 0; z-index: 2;" class="imgCardAnim">
+                          <img [src]="exerCiruito? exerCiruito.url : '/assets/img/no_photo.jpg'" alt="Imagen del ejercicio" style="width: 100%; height: 100%; z-index: 1; border-radius: 5px;" />
+                        </div>
+
+                        <div style="display: flex; position: relative; right: 0; top: 0; margin-bottom: 10px;min-height: 20px; width: 20%; margin-left: 15px;">
+                          <span style="width: 100%; font-size: larger;">
+                            <strong>
+                              {{ getExcerciseEJER(exerCiruito).nombre || '' }}
+                            </strong>
+                          </span>
+                        </div>
+
+                        <div style="display: block; width: 30%; position: absolute; left: 60%; height: 80px; padding: 0; justify-content: center; align-items: center; z-index: 1;">
+                          <div style="padding: 5px; background-color: rgba(255, 242, 123, 0.733); border-radius: 8px;"><span class="form__label">Reps: <strong>{{exerCiruito.reps}}</strong></span></div>
+                        </div>
+
+                        <div style="position: relative; bottom: -35px; left: -49%;">
+                          <div style="z-index: 2; width: 30px; padding-top: 15px;padding-left: 10px; justify-content: center; align-items: center; height: 30px; border-radius: 0 50px 0 5px; position: absolute; bottom: 0; left: 0;" [style.background-color]="item.color? item.color : 'rgba(61, 173, 39, 0.856)'">
+                            <span style="color: #ebebeb;font-weight: 900;">{{cir+1}}</span>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+
+                    <div style="position: relative; top: -89%; left: -15px;">
+                      <div style="z-index: 2; width: 30px; padding-top: 15px;padding-left: 10px; justify-content: center; align-items: center; height: 30px; border-radius: 8px 0 50px 0 ; position: absolute; bottom: 0; left: 0;" [style.background-color]="item.color? item.color : 'rgba(61, 173, 39, 0.856)'">
+                        <span style="color: #ebebeb;font-weight: 900;">{{index+1}}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </mat-expansion-panel>
+            </mat-accordion>
+
+          </div>
+
+        </div>
+
+        <!--      LISTA CONVENCIONAL
+
+
+        <div style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
+          <span style="margin: 2%; margin-top: 15px;" class="title" >
+            Personalizadas
+          </span>
+          <div *ngIf="!rutinasDescargadas">
+            <span style="color: #333333; font-weight: 500;">Ver:</span>
+            <button (click)="downloadAllRutinas()" style="margin-left: 15px;" mat-button class="title butonTitle"><mat-icon style="margin-top: 1px; margin-left: 6px;">visibility</mat-icon></button>
+          </div>
+        </div>
+
+        <div *ngIf="listaRutinas.length > 0" style="display: block; justify-content: center; align-items: center; width: 100%;">
+          <div *ngFor="let grupoMusc of listaRutinas; let i = index" style="display: block; justify-content: center; align-items: center; width: 100%; padding: 15px;">
+
+            <span style="margin: 2%; margin-top: 15px;" class="title" >
+              {{grupoMusc.grupoMuscular}}
+            </span>
+
+            <div style="display: flex; justify-content: center; align-items: center; width: 100%; margin-top: 2%;">
+
+              <mat-accordion style="width: 95%;">
+                <mat-expansion-panel hideToggle *ngFor="let rutina of grupoMusc.rutinas" style="width: 100%; "  (opened)="panelOpenState = true" [style.background-color]="finInDeletingList(rutina)? '#ff5555ab': finInStartingList(rutina)? '#ffde44' : '' "
+                                     (closed)="panelOpenState = false" [disabled]="deletingRutines || startMode" (click)="putListDelete(rutina)">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      {{rutina.name}}
+                    </mat-panel-title>
+                    <mat-panel-description>
+                      {{panelOpenState ? '' : getResumeExcecise(rutina.ejercicios) }}
+                    </mat-panel-description>
+                  </mat-expansion-panel-header>
+
+                  <div *ngFor="let item of rutina.ejercicios; let index = index; let odd = odd" [style.background-color]="item.color? item.color : ''" style="margin-bottom: 15px;" class="exercise-container" (click)="openShowExcercise(item)">
+                    <div class="exercise-column" style="width: 50%;" [class.odd]="odd" *ngIf="getExcercise(item) && getExcercise(item).nombre != 'c1ecu1t029092005'">
+                      <div style="width: 100%; display: flex; position: relative; justify-content: start; align-items: center;">
+                        <div style="display: flex; width: 40%; height: 80px; margin-bottom: 10px; padding: 0; z-index: 2;" class="imgCardAnim">
+                          <img [src]="getExcercise(item)? getExcercise(item).url : '/assets/img/no_photo.jpg'" alt="Imagen del ejercicio" style="width: 100%; height: 100%; z-index: 1; border-radius: 5px;" />
+                        </div>
+
+                        <div style="display: flex; position: absolute; right: 20%; top: 30%; margin-bottom: 10px; width: 20%;">
+                          <span style="width: 100%; font-size: larger;">
+                            <strong>
+                              {{ getExcercise(item).nombre || '' }}
+                            </strong>
+                          </span>
+                        </div>
+
+                        <div style="display: block; min-width: 50%; width: fit-content; position: absolute; left: 130%; height: 80px; margin-top: 10px; padding: 0; justify-content: center; align-items: center; z-index: 1;">
+                          <div style="padding: 5px; margin-bottom: 15px; background-color: rgba(255, 242, 123, 0.733); border-radius: 8px;"><span class="form__label">Series: <strong>{{item.series}}</strong></span></div>
+                          <div style="padding: 5px; background-color: rgba(255, 242, 123, 0.733); border-radius: 8px;"><span class="form__label">Reps: <strong>{{item.reps}}</strong></span></div>
+                        </div>
+                      </div>
+
+                      <div style="position: relative; bottom: 0; left: 0;">
+                        <div style="z-index: 2; width: 30px; padding-top: 15px;padding-left: 10px; justify-content: center; align-items: center; height: 30px; border-radius: 0 50px 0 5px; position: absolute; bottom: 0; left: 0;" [style.background-color]="'rgba(61, 173, 39, 0.856)'">
+                          <span style="color: #ebebeb;font-weight: 900;">{{index+1}}</span>
+                        </div>
+                      </div>
+                    </div>
+                    -->
+                    <!-- CIRCUITO
+                    <div style="width: 100%; border-radius: 8px;" [class.odd]="odd" *ngIf="!(getExcercise(item) && getExcercise(item).nombre != 'c1ecu1t029092005')">
+                      <div style="width: 100%; height: fit-content; display: block; position: relative; justify-content: start; align-items: center;">
+                        <div style="margin-left: 15px; margin-bottom: 15px;">
+                          <span><strong>Series del circuito : </strong> {{item.ciruitoseries}} </span>
+                        </div>
+                        <div *ngFor="let exerCiruito of isPropertyArray(item); let cir = index" (click)="openShowExcerciseCircuito(exerCiruito)"  style="padding: 10px; border-radius: 8px; height: 100px; width: 90%; display: flex; margin-bottom: 15px; align-items: center; justify-content: left; margin-top: 10px;" [style.background-color]="item.color? item.color : 'rgba(61, 173, 39, 0.856)'">
+                          <div style="display: flex; width: 25%; height: 80px; margin-bottom: 10px; padding: 0; z-index: 2;" class="imgCardAnim">
+                            <img [src]="exerCiruito? exerCiruito.url : '/assets/img/no_photo.jpg'" alt="Imagen del ejercicio" style="width: 100%; height: 100%; z-index: 1; border-radius: 5px;" />
+                          </div>
+
+                          <div style="display: flex; position: relative; right: 0; top: 0; margin-bottom: 10px;min-height: 20px; width: 20%; margin-left: 15px;">
+                            <span style="width: 100%; font-size: larger;word-wrap: break-word; line-height: 1.5rem;">
+                              <strong>
+                                {{ (getExcerciseEJER(exerCiruito).nombre || '').substring(0, 15) }}
+                                {{ (getExcerciseEJER(exerCiruito).nombre || '').substring(15, 30) }}
+                                {{ (getExcerciseEJER(exerCiruito).nombre || '').substring(30, 45) }}
+                              </strong>
+                            </span>
+                          </div>
+
+                          <div style="display: block; width: 30%; position: absolute; left: 60%; height: 80px; padding: 0; justify-content: center; align-items: center; z-index: 1;">
+                            <div style="padding: 5px; background-color: rgba(255, 242, 123, 0.733); border-radius: 8px;"><span class="form__label">Reps: <strong>{{exerCiruito.reps}}</strong></span></div>
+                          </div>
+
+                          <div style="position: relative; bottom: -35px; left: -49%;">
+                            <div style="z-index: 2; width: 30px; padding-top: 15px;padding-left: 10px; justify-content: center; align-items: center; height: 30px; border-radius: 0 50px 0 5px; position: absolute; bottom: 0; left: 0;" [style.background-color]="item.color? item.color : 'rgba(61, 173, 39, 0.856)'">
+                              <span style="color: #ebebeb;font-weight: 900;">{{cir+1}}</span>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+
+                      <div style="position: relative; top: -89%; left: -15px;">
+                        <div style="z-index: 2; width: 30px; padding-top: 15px;padding-left: 10px; justify-content: center; align-items: center; height: 30px; border-radius: 8px 0 50px 0 ; position: absolute; bottom: 0; left: 0;" [style.background-color]="item.color? item.color : 'rgba(61, 173, 39, 0.856)'">
+                          <span style="color: #ebebeb;font-weight: 900;">{{index+1}}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </mat-expansion-panel>
+              </mat-accordion>
+
+            </div>
+          </div>
+        </div>
+
+        -->
+
+        <!--      SIN RUTINAS        -->
+
+        <div *ngIf="listaRutinas.length === 0 && listStarred.length === 0" class="alert-warning" style="width: 90%; padding: 20px; border: 10px;">
+          Parece que no hay rutinas aún
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- PANTALLA CHICA -->
+<div *ngIf="isSmallScreen" style="margin: 2%; display: flex; align-items: center; justify-content: center; width: 93%;">
+
+  <div style="display: block; width: 100%;">
+    <div style="width: 100%; display: flex; align-items: center; justify-content: center;">
+
+    <div style="width: 100%; display: flex; align-items: center; justify-content: center;">
+      <!-- AGREGAR
+      <div style="display: block; width: 110px; align-items: center; justify-content: center;" *ngIf="!deletingRutines && !startMode && !shoeMenuNewMobile">
+        <label style="font-size: small; color: rgb(172, 172, 172);">Crear rutina</label>
+        <button class="addbutton" matTooltip="Crear rutina" color="secondary" style="margin-left: 10px; margin-top: 10px;" (click)="changeShowNewRutina()"><mat-icon style="margin-top: 5px;">add</mat-icon></button>
+      </div>
+      <div style="display: block; width: 110px; align-items: center; justify-content: center;" *ngIf="!deletingRutines && !startMode && shoeMenuNewMobile">
+        <label style="font-size: small; color: rgb(172, 172, 172);">Crear rutina</label>
+        <button class="deleteButton" matTooltip="Canelar" color="secondary" style="margin-left: 10px; margin-top: 10px;" (click)="shoeMenuNewMobile = false"><mat-icon style="margin-top: 5px;">close</mat-icon></button>
+      </div>
+      -->
+      <!-- ELIMINAR
+      <div style="display: block; width: 110px; align-items: center; justify-content: center;" *ngIf="!deletingRutines && !startMode && (listaRutinas.length > 0  || listStarred.length > 0) && !shoeMenuNewMobile">
+        <label style="font-size: small; color: rgb(172, 172, 172);">Eliminar Rutina</label>
+        <button class="deleteButton" matTooltip="Eliminar rutina" color="secondary" style="margin-left: 10px; margin-top: 10px;" (click)="deletingRutines = true"><mat-icon style="margin-top: 5px;">close</mat-icon></button>
+      </div>
+      <div style="display: block; width: 110px;margin-right: 30px; align-items: center; justify-content: center;" *ngIf="deletingRutines && !startMode && !shoeMenuNewMobile">
+        <label style="font-size: small; color: rgb(172, 172, 172);">Aceptar eliminar</label>
+        <button class="deleteButton" matTooltip="Aceptar" color="secondary" style="margin-left: 10px; margin-top: 10px;" (click)="deleteForeverAll()"><mat-icon style="margin-top: 5px;">delete_forever</mat-icon></button>
+      </div>
+      <div style="display: block; width: 110px; align-items: center; justify-content: center;" *ngIf="deletingRutines && !startMode && !shoeMenuNewMobile">
+        <label style="font-size: small; color: rgb(172, 172, 172);">Cancelar</label>
+        <button class="cancelButnoDelete" matTooltip="Cancelar" color="secondary" style="margin-left: 10px; margin-top: 10px;" (click)="calcelarDelete()"><mat-icon style="margin-top: 5px;">arrow_back</mat-icon></button>
+      </div>
+      -->
+
+      <!-- FAVORITOS
+      <div style="display: block; width: 110px; align-items: center; justify-content: center;" *ngIf="!startMode && !deletingRutines && (listaRutinas.length > 0 || listStarred.length > 0) && !shoeMenuNewMobile">
+        <label style="font-size: small; color: rgb(172, 172, 172);">Agregar favoritos</label>
+        <button class="starButton" matTooltip="Agregar favoritos" color="secondary" style="margin-left: 10px; margin-top: 10px;" (click)="starToStarringMode()"><mat-icon style="margin-top: 5px;">star</mat-icon></button>
+      </div>
+      <div style="display: block; margin-right: 15px; width: 110px; align-items: center; justify-content: center;" *ngIf="startMode && !deletingRutines && !shoeMenuNewMobile">
+        <label style="font-size: small; color: rgb(172, 172, 172);">Aceptar favoritos</label>
+        <button class="starButton" matTooltip="Aceptar" color="secondary" style="margin-left: 10px; margin-top: 10px;" (click)="addStarRutinas()"><mat-icon style="margin-top: 5px;">done</mat-icon></button>
+      </div>
+      <div style="display: block; width: 110px; align-items: center; justify-content: center;" *ngIf="startMode && !deletingRutines && !shoeMenuNewMobile">
+        <label style="font-size: small; color: rgb(172, 172, 172);">Cancelar</label>
+        <button class="starButtonCancel" matTooltip="Cancelar" color="secondary" style="margin-left: 10px; margin-top: 10px;" (click)="calcelarDelete()"><mat-icon style="margin-top: 5px; margin-left: 2px;">cancel</mat-icon></button>
+      </div>
+      -->
+    </div>
+    </div>
+
+    <div style="width: 100%; display: flex; align-items: center; justify-content: center;" *ngIf="!shoeMenuNewMobile">
+      <div class="list" style="margin-top: 10px; width: 99%; min-height: 200px; display: block; align-items: center; justify-content: center;">
+
+        <!--      LISTA FAVORITOS         -->
+
+        <div *ngIf="listStarred.length > 0"
+          style="display: block; justify-content: center; align-items: center; margin-bottom: 40px; margin-top: 20px;
+          width: 100%;">
+
+          <span style="justify-content: center; align-items: center; display: flex; padding: 8px; border-radius: 8px; background-color: #ffff004b;"><mat-icon style="margin-right: 15px;">star</mat-icon>  Predeterminados</span>
+
+          <div class="starredList">
+
+            <mat-accordion style="width: 95%;">
+              <mat-expansion-panel hideToggle *ngFor="let rutina of listStarred" style="width: 100%; "  (opened)="panelOpenState = true" [style.background-color]="finInDeletingList(rutina)? '#ff5555ab': finInStartingList(rutina)? '#ffde44' : '' "
+                                   (closed)="panelOpenState = false" [disabled]="deletingRutines || startMode" (click)="putListDelete(rutina)">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    {{rutina.name}}
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    <div style="display: flex; justify-content: space-between; width: 100%;">
+                      <div>{{panelOpenState ? '' : getResumeExcecise(rutina.ejercicios) }}</div>
+                      <div><button mat-button (click)="editRutina(rutina,$event)"> <mat-icon>edit</mat-icon> Editar </button></div>
+                    </div>
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+
+                <div *ngFor="let item of rutina.ejercicios; let index = index" [style.background-color]="item.color? item.color : ''" style="margin-bottom: 15px; width: 90%;" class="exercise-container">
+                  <div style="width: 100%;" *ngIf="getExcercise(item) && getExcercise(item).nombre != 'c1ecu1t029092005'">
+                    <div style="width: 100%; display: flex; justify-content: start; align-items: center;">
+                      <div style="display: flex; width: 45%; height: 80px; margin-bottom: 10px; padding: 0; z-index: 2; margin-right: 3%;">
+                        <img [src]="getExcercise(item)? getExcercise(item).url : '/assets/img/no_photo.jpg'" alt="Imagen del ejercicio" style="width: 100%; height: 100%; z-index: 1; border-radius: 5px;" />
+                      </div>
+
+                      <div style="width: 50%; height: 100%; display: block;">
+                        <div style="display: block; width: 100%; height: 55px; margin-top: 10px; padding: 0; justify-content: center; align-items: center; z-index: 1;">
+                          <div style="padding-left: 5px; padding-bottom: 2px; padding-top: 2px; margin-bottom: 5px; background-color: rgba(255, 242, 123, 0.733); border-radius: 8px;"><span class="form__label">Series: <strong>{{item.series}}</strong></span></div>
+                          <div style="padding-left: 5px; padding-bottom: 2px; padding-top: 2px; background-color: rgba(255, 242, 123, 0.733); border-radius: 8px;"><span class="form__label">Reps: <strong>{{item.reps}}</strong></span></div>
+                        </div>
+                        <div style="display: flex; width: 50%;">
+                          <span style="width: 100%; font-size: larger;">
+                            <strong>
+                              {{getExcercise(item).nombre || ''}}
+                            </strong>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div style="position: relative; bottom: 0; left: 0;">
+                      <div style="z-index: 2; width: 30px; padding-top: 15px;padding-left: 10px; justify-content: center; align-items: center; height: 30px; border-radius: 0 50px 0 5px; position: absolute; bottom: 0; left: 0;" [style.background-color]="'rgba(61, 173, 39, 0.856)'">
+                        <span style="color: #ebebeb;font-weight: 900;">{{index+1}}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- CIRCUITO -->
+                  <div style="width: 90%; height: 100%; border-radius: 8px;" *ngIf="!(getExcercise(item) && getExcercise(item).nombre != 'c1ecu1t029092005')">
+                    <div style="width: 100%; height: fit-content; display: block; position: relative; justify-content: start; align-items: center;">
+
+                      <div style="position: relative; top: 0; left: -15px; margin-top: -25px;">
+                        <div style="z-index: 2; width: 30px; padding-top: 15px;padding-left: 10px; justify-content: center; align-items: center; height: 30px; border-radius: 8px 0 50px 0; position: absolute;" [style.background-color]="item.color? item.color : 'rgba(61, 173, 39, 0.856)'">
+                          <span style="color: #ebebeb;font-weight: 900;">{{index+1}}</span>
+                        </div>
+                      </div>
+                      <div style="margin-left: 15px; margin-bottom: 15px; margin-top: 10px;">
+                        <span><strong>Series del circuito : </strong> {{item.ciruitoseries}} </span>
+                      </div>
+                      <div *ngFor="let exerCiruito of isPropertyArray(item); let cir = index" style="padding: 10px; border-radius: 8px; height: 100px; width: 100%; display: flex; margin-bottom: 15px; align-items: center; justify-content: left; margin-top: 10px;" [style.background-color]="item.color? item.color : 'rgba(61, 173, 39, 0.856)'">
+                        <div style="position: relative; display: flex; width: 50%; height: 80px; margin-bottom: 10px; padding: 0; z-index: 2;">
+                          <img [src]="exerCiruito? exerCiruito.url : '/assets/img/no_photo.jpg'" alt="Imagen del ejercicio" style="width: 100%; height: 100%; z-index: 1; border-radius: 5px;" />
+                          <div style="z-index: 1001; position: absolute; height: 45px; bottom: 0; left: 0;">
+                            <div style="z-index: 2; width: 30px; padding-top: 15px;padding-left: 10px; justify-content: center; align-items: center; height: 30px; border-radius: 0 50px 0 5px; " [style.background-color]="item.color? item.color : 'rgba(61, 173, 39, 0.856)'">
+                              <span style="color: #ebebeb;font-weight: 900;">{{cir+1}}</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div style="display: block; width: 45%; height: 100%; margin-left: 3%; align-items: center;">
+                          <div style="display: block; width: 100%; padding: 0; justify-content: center; align-items: center; z-index: 1;">
+                            <div style="padding: 5px; background-color: rgba(255, 242, 123, 0.733); border-radius: 8px;"><span class="form__label">Reps: <strong>{{exerCiruito.reps}}</strong></span></div>
+                          </div>
+
+                          <div style="display: flex; margin-bottom: 10px;min-height: 20px; width: 100%;">
+                            <span style="width: 100%; font-size: larger;">
+                              <strong>
+                                {{ getExcerciseEJER(exerCiruito).nombre || '' }}
+                              </strong>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+
+                  </div>
+                </div>
+
+              </mat-expansion-panel>
+            </mat-accordion>
+
+          </div>
+
+        </div>
+
+        <!--      LISTA CONVENCIONAL
+
+        <div style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
+          <span style="margin: 2%; margin-top: 15px;" class="title" >
+            Personalizadas
+          </span>
+          <div *ngIf="!rutinasDescargadas">
+            <span style="color: #333333; font-weight: 500;">Ver:</span>
+            <button (click)="downloadAllRutinas()" style="margin-left: 15px;" mat-button class="title butonTitle"><mat-icon style="margin-top: 1px; margin-left: 6px;">visibility</mat-icon></button>
+          </div>
+        </div>
+
+        <div *ngIf="listaRutinas.length > 0" style="display: block; justify-content: center; align-items: center; width: 100%;">
+          <div *ngFor="let grupoMusc of listaRutinas; let i = index" style="display: block; justify-content: center; align-items: center; width: 100%; padding-left: 5px; padding-top: 20px;">
+
+            <span style="margin-bottom: 35px;margin-left: 15px; margin-top: 20px;" class="title" >
+              {{grupoMusc.grupoMuscular}}
+            </span>
+
+            <div style="display: flex; justify-content: center; align-items: center; width: 100%; margin-top: 2%;">
+
+              <mat-accordion style="width: 85%;">
+                <mat-expansion-panel hideToggle *ngFor="let rutina of grupoMusc.rutinas" style="width: 100%; height: fit-content;"
+                  (opened)="panelOpenState = true" [style.background-color]="finInDeletingList(rutina)? '#ff5555ab': finInStartingList(rutina)? '#ffde44' : '' "
+                  (closed)="panelOpenState = false" (click)="putListDelete(rutina)" [disabled]="deletingRutines || startMode">
+                  <mat-expansion-panel-header style="height: fit-content; padding-top: 15px; padding-bottom: 15px;">
+                    <mat-panel-title>
+                      {{rutina.name}}
+                    </mat-panel-title>
+                    <mat-panel-description>
+                      {{panelOpenState ? '' : getResumeExcecise(rutina.ejercicios) }}
+                    </mat-panel-description>
+                  </mat-expansion-panel-header>
+
+                  <div *ngFor="let item of rutina.ejercicios; let index = index; let odd = odd" [style.background-color]="item.color? item.color : ''" style="margin-bottom: 15px;" class="exercise-container">
+                    <div class="exercise-column" style="width: 100%; position: relative;" [class.odd]="odd" *ngIf="getExcercise(item) && getExcercise(item).nombre != 'c1ecu1t029092005'">
+
+                        <div style="display: flex; width: 100%; height: 80px; margin-bottom: 10px; padding: 0; z-index: 2;" class="imgCardAnim">
+                          <img [src]="getExcercise(item)? getExcercise(item).url : '/assets/img/no_photo.jpg'" alt="Imagen del ejercicio" style="width: 100%; height: 100%; z-index: 1; border-radius: 5px;" />
+                        </div>
+
+                        <div style="display: block; min-width: 50%; width: fit-content; position: absolute; left: 100%; top: 30%; height: 80px; margin-top: 10px; padding: 0; justify-content: center; align-items: center; z-index: 1;">
+                          <div style="padding: 5px;width: fit-content; margin-bottom: 15px; background-color: rgba(255, 242, 123, 0.733); border-radius: 8px;"><span class="form__label" style="font-size: small;"><strong>{{item.series}}  x  {{item.reps}}</strong></span></div>
+                        </div>
+
+                        <div style="display: flex; position: absolute; left:160%; top: 50%; margin-bottom: 10px; width: 100%;">
+                          <span style="width: 100%; font-size: larger;word-wrap: break-word; line-height: 1.5rem;">
+                            <strong>
+                              {{ getExcercise(item).nombre || '' }}
+                            </strong>
+                          </span>
+                        </div>
+
+                      <div style="position: relative; bottom: 0; left: 0;">
+                        <div style="z-index: 2; width: 30px; padding-top: 15px;padding-left: 10px; justify-content: center; align-items: center; height: 30px; border-radius: 0 50px 0 5px; position: absolute; bottom: 0; left: 0;" [style.background-color]="'rgba(61, 173, 39, 0.856)'">
+                          <span style="color: #ebebeb;font-weight: 900;">{{index+1}}</span>
+                        </div>
+                      </div>
+                    </div>
+                    -->
+                    <!-- CIRCUITO
+                    <div style="width: 200%; border-radius: 8px;" [class.odd]="odd" *ngIf="!(getExcercise(item) && getExcercise(item).nombre != 'c1ecu1t029092005')">
+
+                      <div style="margin-left: 15px; margin-bottom: 15px;">
+                        <span><strong>Series del circuito : </strong> {{item.ciruitoseries}} </span>
+                      </div>
+
+                        <div *ngFor="let exerCiruito of isPropertyArray(item); let cir = index" style="padding: 10px; border-radius: 8px; height: 100px; width: 100%; display: flex; margin-bottom: 15px; align-items: center; justify-content: left; margin-top: 10px;" [style.background-color]="item.color? item.color : 'rgba(61, 173, 39, 0.856)'">
+                          <div style="display: flex; width: 100%; height: 80px; margin-bottom: 10px; padding: 0; z-index: 2;" class="imgCardAnim">
+                            <img [src]="exerCiruito? exerCiruito.url : '/assets/img/no_photo.jpg'" alt="Imagen del ejercicio" style="width: 80px; height: 100%; z-index: 1; border-radius: 5px;" />
+                          </div>
+
+
+
+                          <div style="display: block; width: 30%; position: absolute; left: 60%; height: 80px; padding: 0; justify-content: center; align-items: center; z-index: 1;">
+                            <div style="padding: 5px; background-color: rgba(255, 242, 123, 0.733); border-radius: 8px;"><span class="form__label">Reps: <strong>{{exerCiruito.reps}}</strong></span></div>
+                          </div>
+
+                          <div style="display: flex; position: relative; right: 0; top: 50%; margin-bottom: 10px;min-height: 20px; width: 100%; margin-left: 15px;">
+                            <span style="width: 100%; font-size: larger;word-wrap: break-word; line-height: 1.5rem;">
+                              <strong>
+                                {{ getExcerciseEJER(exerCiruito).nombre || '' }}
+                              </strong>
+                            </span>
+                          </div>
+
+                          <div style="position: relative; bottom: -35px; left: -100%;">
+                            <div style="z-index: 2; width: 30px; padding-top: 15px;padding-left: 10px; justify-content: center; align-items: center; height: 30px; border-radius: 0 50px 0 5px; position: absolute; bottom: 0; left: 0;" [style.background-color]="item.color? item.color : 'rgba(61, 173, 39, 0.856)'">
+                              <span style="color: #ebebeb;font-weight: 900;">{{cir+1}}</span>
+                            </div>
+                          </div>
+                        </div>
+
+                      <div style="position: relative; top: -89%; left: -15px;">
+                        <div style="z-index: 2; width: 30px; padding-top: 15px;padding-left: 10px; justify-content: center; align-items: center; height: 30px; border-radius: 8px 0 50px 0 ; position: absolute; bottom: 0; left: 0;" [style.background-color]="item.color? item.color : 'rgba(61, 173, 39, 0.856)'">
+                          <span style="color: #ebebeb;font-weight: 900;">{{index+1}}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </mat-expansion-panel>
+              </mat-accordion>
+
+            </div>
+          </div>
+        </div>
+        -->
+
+        <!--      SIN RUTINAS        -->
+
+        <div *ngIf="listaRutinas.length === 0 && listStarred.length === 0" class="alert-warning" style="width: 90%; padding: 20px; border: 10px;">
+          Parece que no hay rutinas aún
+        </div>
+
+      </div>
+    </div>
+
+    <div *ngIf="shoeMenuNewMobile" style="height: 60%;  width: 105%; margin-top: 20px;">
+      <div style="display: flex; width: 100%; align-items: center; justify-content: center; margin-bottom: 25px;">
+        <div style="display: block;">
+          <div><label style="font-size: small; color: rgb(172, 172, 172);">Cancelar</label></div>
+          <button class="deleteButton" matTooltip="Cancelar Rutina" color="secondary" style="margin-top: 10px;" (click)="onClosed({_id:'',name:'',grupoMuscular:'',ejercicios:[]})"><mat-icon style="margin-top: 5px;">close</mat-icon></button>
+        </div>
+      </div>
+      <app-create-rutina-fake-dialog (closed)="onClosed($event)"></app-create-rutina-fake-dialog>
+    </div>
+
+
+  </div>
+</div>

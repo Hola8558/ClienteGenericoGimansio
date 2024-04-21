@@ -1,0 +1,36 @@
+<h1 mat-dialog-title>Agregar ejercicio</h1>
+<div mat-dialog-content>
+  <!--  PANTALLA PEQUEÑA  [(ngModel)]="ncuenta"  -->
+    <div *ngIf="isSmallScreen" style="width: 90%; overflow-y: auto;">
+     <mat-form-field matTooltip="Buscar" autofocus="false" style="width: 100%; margin-top: 15px;">
+        <mat-label>Buscar</mat-label>
+        <input matInput placeholder="Buscar ejercicio" autofocus="false" (keyup)="applyFilter($event)" #input>
+      </mat-form-field>
+
+      <div *ngFor="let item of ejercicios" (click)="addExcerciseFun(item)" [class]=" isInList(item._id!) ? 'selectedItem':'default' " >
+        <div class="exercise-column" style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
+
+            <div style="display: flex; width: 40%; height: 80px; margin-left: 10px; margin-bottom: 10px; padding: 0; z-index: 2;" class="imgCardAnim">
+              <img [src]="item.url? item.url : '/assets/img/no_photo.jpg'" alt="Imagen del ejercicio" style="width: 100%; height: 100%; z-index: 1; border-radius: 5px;" />
+            </div>
+
+            <div style="display: flex; margin-left: 20px; margin-bottom: 10px; width: 60%;">
+              <span style="width: 100%; font-size: medium;word-wrap: break-word; line-height: 1.5rem;">
+                <strong>
+                  {{item.nombre}}
+                </strong>
+              </span>
+            </div>
+
+
+        </div>
+      </div>
+
+  </div>
+</div>
+<div mat-dialog-actions >
+  <div *ngIf="!spinnerUpload" style="width: 100%; display: flex; justify-content: space-between; height: 50px;">
+    <button mat-button (click)="onNoClick(false)">Cancelar</button>
+    <button mat-button (click)="submitForm()" *ngIf=" messageError === '' " style="background: rgba(8, 117, 8, 0.5); width: 100px;">Agregar</button>
+  </div>
+</div>

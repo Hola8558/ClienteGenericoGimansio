@@ -1,0 +1,29 @@
+.last-option {
+  background-color: #e3ffdd; /* Cambia el color según tus necesidades */
+  /* Otros estilos para la última opción */
+}
+
+.selectRutina{
+  -webkit-box-shadow: -12px -13px 26px -5px rgba(56,222,255,1);
+  -moz-box-shadow: -12px -13px 26px -5px rgba(56,222,255,1);
+  box-shadow: -12px -13px 26px -5px rgba(56,222,255,1);
+}
+
+.selectRutinaMobile{
+  -webkit-box-shadow: -12px -13px 26px -5px rgba(56, 222, 255, 0.315);
+  -moz-box-shadow: -12px -13px 26px -5px rgba(56,222,255,0.315);
+  box-shadow: -12px -13px 26px -5px rgba(56,222,255,0.315);
+  background-color: #e3ffdd93;
+}
+
+.selectedItem{
+  transform: translateX(10%);
+  width: 80%;
+  background-color: #c2f0b8;
+  border-color: aqua;
+  border-radius: 8px; margin-bottom: 15px;
+}
+
+.default{
+  background-color: rgb(245, 243, 243); border-radius: 8px; margin-bottom: 15px;
+}

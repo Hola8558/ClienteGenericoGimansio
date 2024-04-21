@@ -1,0 +1,158 @@
+.example-box {
+  width: 400px;
+  height: 600px;
+  transform-origin: top left;
+  border: solid 1px #ccc;
+  background: #ffffffb4;
+  backdrop-filter: blur(20px);
+  color: rgba(0, 0, 0, 0.87);
+  cursor: move;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-radius: 4px;
+  margin-right: 25px;
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+  padding: 10px;
+  transition: box-shadow 200ms cubic-bezier(0, 0, 0.2, 1);
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2),
+              0 2px 2px 0 rgba(0, 0, 0, 0.14),
+              0 1px 5px 0 rgba(0, 0, 0, 0.12);
+}
+
+.example-box:active {
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+              0 8px 10px 1px rgba(0, 0, 0, 0.14),
+              0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.example-boundary {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+}
+
+.vontaiter-info{
+  margin: 5px;
+}
+
+.imgageProfile{
+  width: 160px;
+  height: 200px;
+  border-radius: 4%;
+  margin-top: 0px;
+  margin-right: -198px;
+}
+
+.skeleton{
+  opacity: .7;
+  animation: skeletonLoading 1s linear infinite alternate;
+}
+
+@keyframes skeletonLoading {
+  0%{
+    background-color: hsl(200, 20%, 70%);
+  }
+
+  100%{
+    background-color: hsl(200, 20%, 95%);
+  }
+}
+
+.skeleton-text{
+  width: 100%;
+  height: 1rem;
+  margin-bottom: .25rem;
+  border-radius: .125rem;
+}
+
+.skeleton-text:last-child{
+  margin-bottom: 0;
+}
+
+::-webkit-scrollbar{
+  width: 10px;
+}
+
+::-webkit-scrollbar-track{
+  background: #dddd;
+}
+
+::-webkit-scrollbar-thumb{
+  background: linear-gradient(#c0f5b1, #c0f5b11c);
+  border-radius: 10px;
+}
+
+@keyframes scale-in-tl {
+  0% {
+    transform: scale(0);
+    transform-origin: top left;
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    transform-origin: top left;
+    opacity: 1;
+  }
+}
+
+.scale-in-tl {
+  animation: scale-in-tl 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.scale-in {
+  animation: scaleIn 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+
+/* En tu archivo de estilos CSS o componente CSS */
+.scale-out-tr {
+  -webkit-animation: scale-out-tr 0.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+  animation: scale-out-tr 0.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+}
+
+
+ @-webkit-keyframes scale-out-tr {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    -webkit-transform-origin: 100% 0%;
+            transform-origin: 100% 0%;
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+    -webkit-transform-origin: 100% 0%;
+            transform-origin: 100% 0%;
+    opacity: 1;
+  }
+}
+@keyframes scale-out-tr {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    -webkit-transform-origin: 100% 0%;
+            transform-origin: 100% 0%;
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+    -webkit-transform-origin: 100% 0%;
+            transform-origin: 100% 0%;
+    opacity: 1;
+  }
+}

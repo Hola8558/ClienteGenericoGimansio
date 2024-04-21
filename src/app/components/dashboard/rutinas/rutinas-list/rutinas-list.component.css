@@ -1,0 +1,297 @@
+/* add Buton */
+
+.addbutton:hover{
+  animation: addButton 0.3s forwards;
+}
+
+.addbutton:not(:hover) {
+  animation: addButtonReverse 0.3s forwards;
+}
+
+.addbutton{
+  background: #16ad43;
+  color: #d4d4d4;
+  height: 50px;
+  width: 50px;
+  font-size: x-large;
+  border: none;
+  border-radius: 100px;
+}
+
+.cancelButnoDelete{
+  background: #1676ad;
+  color: #d4d4d4;
+  height: 50px;
+  width: 50px;
+  font-size: x-large;
+  border: none;
+  border-radius: 100px;
+}
+
+.cancelButnoDelete{
+  background: #1676ad;
+  color: #d4d4d4;
+  height: 50px;
+  width: 50px;
+  font-size: x-large;
+  border: none;
+  border-radius: 100px;
+}
+
+.starButton{
+  background: #ffc600;
+  color: #181818;
+  height: 50px;
+  width: 50px;
+  font-size: x-large;
+  border: none;
+  border-radius: 100px;
+}
+
+.starButtonCancel{
+  background: #c44b04;
+  color: #d4d4d4;
+  height: 50px;
+  width: 50px;
+  font-size: x-large;
+  border: none;
+  border-radius: 100px;
+}
+
+.starButton:hover{
+  animation: starButtonCancelAnim 0.3s forwards;
+}
+.starButton:not(hover){
+  animation: starButtonCancelAnimReverse 0.3s forwards;
+}
+
+.deleteButton:hover{
+  animation: deleteButton 0.3s forwards;
+}
+
+.deleteButton:not(:hover) {
+  animation: deleteButtonReverse 0.3s forwards;
+}
+
+.deleteButton{
+  background: #ad1616;
+  color: #d4d4d4;
+  height: 50px;
+  width: 50px;
+  font-size: x-large;
+  border: none;
+  border-radius: 100px;
+}
+
+.Closeaddbutton{
+  background: #ad5a16;
+  color: #f0b9b9;
+  height: 50px;
+  width: 50px;
+  font-size: x-large;
+  border: none;
+  border-radius: 100px;
+}
+
+@keyframes starButtonCancelAnim {
+  from{
+    background: #ffc600;
+    height: 50px;
+    width: 50px;
+    font-size: x-large;
+    border: none;
+    border-radius: 100px;
+  }
+  to {
+    background: #ffd900;
+    color: #000000;
+    box-shadow: 0 0 50px 5px #fbff00;
+  }
+}
+
+@keyframes starButtonCancelAnimReverse {
+  from{
+    background: #ffd900;
+    color: #000000;
+    box-shadow: 0 0 50px 5px #fbff00;
+  }
+  to {
+    background: #ffc600;
+    height: 50px;
+    width: 50px;
+    font-size: x-large;
+    border: none;
+    border-radius: 100px;
+  }
+}
+
+@keyframes addButton {
+  from{
+    background: #16ad43;
+    height: 50px;
+    width: 50px;
+    font-size: x-large;
+    border: none;
+    border-radius: 100px;
+  }
+  to {
+    background: #0de24d;
+    color: #ffffff;
+    box-shadow: 0 0 50px 5px #0cf050;
+  }
+}
+
+@keyframes addButtonReverse {
+  from{
+    background: #0de24d;
+    color: #ffffff;
+    box-shadow: 0 0 50px 5px #0cf050;
+  }
+  to {
+    background: #16ad43;
+    height: 50px;
+    width: 50px;
+    font-size: x-large;
+    border: none;
+    border-radius: 100px;
+  }
+}
+
+@keyframes deleteButton {
+  from{
+    background: #ad1616;
+    height: 50px;
+    width: 50px;
+    font-size: x-large;
+    border: none;
+    border-radius: 100px;
+  }
+  to {
+    background: #ad1616;
+    color: #ffffff;
+    box-shadow: 0 0 50px 5px #ff5555;
+  }
+}
+
+@keyframes deleteButtonReverse {
+  from{
+    background: #ad1616;
+    color: #ffffff;
+    box-shadow: 0 0 50px 5px #ff5555;
+  }
+  to {
+    background: #ad1616;
+    height: 50px;
+    width: 50px;
+    font-size: x-large;
+    border: none;
+    border-radius: 100px;
+  }
+}
+
+.starredList{
+  -webkit-box-shadow: 0px 0px 52px 10px rgba(255,217,0,0.45);
+  -moz-box-shadow: 0px 0px 52px 10px rgba(255,217,0,0.45);
+  box-shadow: 0px 0px 52px 10px rgba(255,217,0,0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 95%;
+  margin-left: 2%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-top: 2.5%;
+  border-width: 35px;
+  border-color: #ffff00;
+  border-radius: 8px;
+}
+
+.butonTitle:hover{
+  animation: butonTitle 0.2s both;
+}
+
+@keyframes butonTitle {
+  from {
+    border: solid 1px #ccccccb2;
+    min-height: 15px;
+    background: #0a913e3d;
+    backdrop-filter: blur(20px);
+    color: rgba(0, 0, 0, 0.87);
+    padding: 10px;
+    padding: 15px;
+    border-radius: 4px;
+    border-color: none;
+  }
+  to {
+    border: solid 1px #ccccccb2;
+    min-height: 15px;
+    background: #28c00af1;
+    backdrop-filter: blur(20px);
+    color: rgba(255, 255, 255, 0.87);
+    padding: 10px;
+    padding: 15px;
+    border-radius: 4px;
+    border-color: none;
+    -webkit-box-shadow: 0px 0px 37px 2px rgba(40,192,10,1);
+    -moz-box-shadow: 0px 0px 37px 2px rgba(40,192,10,1);
+    box-shadow: 0px 0px 37px 2px rgba(40,192,10,1);
+  }
+}
+
+.list{
+  border: solid 1px #ccc;
+  background: #f1f1f169;
+  backdrop-filter: blur(20px);
+  color: rgba(0, 0, 0, 0.87);
+  box-sizing: border-box;
+  padding: 10px;
+  border-radius: 4px;
+  transition: box-shadow 200ms cubic-bezier(0, 0, 0.2, 1);
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.103),
+              0 2px 2px 0 rgba(0, 0, 0, 0.103),
+              0 1px 5px 0 rgba(0, 0, 0, 0.101);
+}
+
+.item{
+  border: solid 1px #ccccccb2;
+  min-height: 15px;
+  background: #ffffffa2;
+  backdrop-filter: blur(20px);
+  color: rgba(0, 0, 0, 0.87);
+  padding: 10px;
+  border-radius: 4px;
+  border-color: none;
+}
+
+.title{
+  border: solid 1px #ccccccb2;
+  min-height: 15px;
+  background: #21910a3d;
+  backdrop-filter: blur(20px);
+  color: rgba(0, 0, 0, 0.87);
+  padding: 10px;
+  padding: 15px;
+  border-radius: 4px;
+  border-color: none;
+}
+
+.exercise-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 40%;
+  background-color: #f4f8f4;
+  -webkit-box-shadow: -6px 16px 26px 0px rgba(153,153,153,0.57);
+  -moz-box-shadow: -6px 16px 26px 0px rgba(153,153,153,0.57);
+  box-shadow: -6px 16px 26px 0px rgba(153,153,153,0.57);
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.exercise-column {
+  width: 50%;
+  box-sizing: border-box;
+}
+
+.odd {
+  margin-right: 0;
+}

@@ -1,0 +1,140 @@
+<div class="example-boundary" style="position: absolute; width: 100%; height: 88.1%; pointer-events: none; overflow-y: auto; z-index: 1;" *ngIf="show.show === 'show' ">
+
+  <div [@flipVerticalRight]="changeInfloClientReal" [@scaleOutTr]="show.aplicarAnimacion " [@scaleInTl]="show.show " class="example-box"
+  cdkDragBoundary=".example-boundary" cdkDrag [cdkDragFreeDragPosition]="dragPosition" (cdkDragStarted)="onDragStarted()" (cdkDragEnded)="dragEnd($event)" style="pointer-events: auto;"
+  [style.top]="show.posY-95+'px' " [style.left]="show.posX-212+'px' ">
+
+    <div style="display: block; align-items: flex-start; height: 90%; width: 88%; padding: 20px; overflow-y: auto; ">
+      <!-- mi contenido -->
+
+      <button (click)="closeWindow()" mat-button class="button" matTooltip="Cerrar" aria-label="Example icon button with a home icon" style="margin-right: -270px;">
+        <mat-icon>close</mat-icon>
+      </button>
+
+
+      <div *ngIf="client.ncuenta === '' && !error.e ">
+
+        <div style="width: 100%; display: flex;">
+          <div style="width: 40%; height: 150px; display: flex; flex-direction: column; align-items: flex-start; margin-right: 40px; margin-top: 80px;">
+            <div class="skeleton skeleton-text" style="width: 60%;"></div>
+            <div class="skeleton skeleton-text" style="width: 90%;"></div>
+            <div class="skeleton skeleton-text"></div>
+
+            <div style="width: 100%; display: flex; align-items: flex-start; margin-top: 20px;">
+              <div class="skeleton skeleton-text" style="width: 40%; margin-right: 5px;"></div>
+              <div class="skeleton skeleton-text" style="width: 55%;"></div>
+            </div>
+
+            <div style="width: 100%; display: flex; align-items: flex-start;">
+              <div class="skeleton skeleton-text" style="width: 45%; margin-right: 5px;"></div>
+              <div class="skeleton skeleton-text" style="width: 50%;"></div>
+            </div>
+
+          </div>
+
+          <img class="imgageProfile skeleton">
+        </div>
+
+        <div style="width: 100%; display: block;">
+          <div style="display: flex;">
+            <div style="width: 50%; display: flex; align-items: flex-start; margin-right: 15px;">
+              <div class="skeleton skeleton-text" style="width: 35%; margin-right: 5px;"></div>
+              <div class="skeleton skeleton-text" style="width: 65%;"></div>
+            </div>
+
+            <div style="width: 50%; display: flex; align-items: flex-start;">
+              <div class="skeleton skeleton-text" style="width: 35%; margin-right: 5px;"></div>
+              <div class="skeleton skeleton-text" style="width: 65%;"></div>
+            </div>
+          </div>
+
+          <div style="width: 50%; display: flex; align-items: flex-start; margin-right: auto;">
+            <div class="skeleton skeleton-text" style="width: 35%; margin-right: 5px;"></div>
+            <div class="skeleton skeleton-text" style="width: 65%;"></div>
+          </div>
+
+        </div>
+
+        <div style="width: 80%;display: flex;flex-direction: column; justify-content: center; margin-top: 60px; padding-left: 32px;">
+          <div class="skeleton skeleton-text" style="width: 40%; margin-bottom: 10px;"></div>
+          <div class="skeleton" style="width: 100%; height: 250px;"></div>
+        </div>
+
+      </div>
+
+
+      <div *ngIf="client.ncuenta != '' && !error.e ">
+
+        <div style="width: 100%; display: flex;">
+          <div style="width: 40%; height: 150px; display: flex; flex-direction: column; align-items: flex-start; margin-right: 40px; ">
+            <div><strong>Número de Cuenta:</strong></div>
+            <div style="margin-bottom: 10px;">{{client.ncuenta}}</div>
+            <div><strong>Nombre:</strong></div>
+            <div>{{client.nombre}}</div>
+            <div>{{client.apellidos}}</div>
+
+            <div *ngIf="client.gender != '' && client.gender === 'H' " style='background-color: rgba(10, 138, 177, 0.781); margin-top: 10px; border-radius: 50px; color: white; padding: 5px; font-weight: 600;' > {{client.gender}} </div>
+            <div *ngIf="client.gender != '' && client.gender === 'M' " style='background-color: rgba(155, 24, 148, 0.856); margin-top: 10px; border-radius: 50px; color: white; padding: 5px; font-weight: 600' > {{client.gender}} </div>
+
+            <div style="width: 100%; display: flex; align-items: flex-start; margin-top: 10px; margin-bottom: 15px;">
+              <div style="margin-right: 5px;"><strong>Teléfono: </strong></div>
+              <div *ngIf="client.numeroCelular != ''">{{client.numeroCelular}}</div>
+              <div *ngIf="client.numeroCelular === ''" style="font-size: smaller;"><i>Sin registro</i></div>
+            </div>
+
+            <div style="width: 100%; display: flex; align-items: flex-start;">
+              <div style="margin-right: 5px;"><strong>Teléfono de emergencia: </strong></div>
+              <div *ngIf="client.numeroCelularEmergencia != ''">{{client.numeroCelularEmergencia}}</div>
+              <div *ngIf="client.numeroCelularEmergencia === ''" style="font-size: smaller;"><i>Sin registro</i></div>
+            </div>
+
+          </div>
+
+          <img class="imgageProfile"
+          [src]="base64Image ? base64Image : '/assets/img/placeHolder_profile.png'"
+          alt="Perfil image"
+          >
+          <!-- https://png.pngtree.com/png-vector/20231019/ourlarge/pngtree-happy-smile-cat-images-png-imag e_10276665.png -->
+          <!-- https://img.freepik.com/vector-premium/dibujos-animados-lindo-gato-llorando-vector_39961-2581.jpg?w=2000 -->
+        </div>
+
+        <div style="width: 100%; display: block; margin-top: 35px;">
+          <div style="display: flex; margin-bottom: 15px;">
+            <div style="width: 50%; display: block; align-items: flex-start; margin-right: 15px;">
+              <div style="font-size: 11px;"><strong>Último pago de Mensualidad:</strong></div>
+              <div>{{client.ultimoPago}}</div>
+            </div>
+
+            <div style="width: 50%; display: block; align-items: flex-start;">
+              <div><strong>Fecha de Vencimiento:</strong></div>
+              <div>{{client.fechaVencimiento}}</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="width: 60%; display: flex;justify-content: space-between; margin-right: auto; margin-top: 15px;">
+          <div><strong>Mensualidad: </strong></div>
+          <div *ngIf="client.tipoMensualidad.split('-./()/.-')[0] != 'Convenio' ">{{client.tipoMensualidad}}</div>
+          <div *ngIf="client.tipoMensualidad.split('-./()/.-')[0] === 'Convenio' ">Convenio - $<strong>{{client.tipoMensualidad.split('-./()/.-')[1]}}</strong></div>
+        </div>
+
+        <div style="width: 80%;display: flex;flex-direction: column; justify-content: center; margin-top: 60px; padding-left: 32px;">
+          <div style="width: 40%; margin-bottom: 10px;">
+            <span>Días de Asistencia</span>
+          </div>
+        </div>
+
+        <div style="width: 250px; height: 250px; margin-bottom: 50px;">
+          <module-calendar-component [_id]="client._id" ></module-calendar-component>
+        </div>
+
+      </div>
+
+      <div *ngIf="error.e">
+        <span style="margin: 15px;">
+        {{error.m}}</span>
+      </div>
+
+    </div>
+  </div>
+</div>

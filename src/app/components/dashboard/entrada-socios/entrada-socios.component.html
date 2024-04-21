@@ -1,0 +1,32 @@
+<div style="width: 97%; height: 100%; padding: 15px; display: flex; justify-content: center; align-items: center; background-color: #ffff;" (focus)="focusInput()">
+
+  <div style="display: block;">
+    <div><img src="../../../assets/img/gymSport.jpg" width="150%"></div>
+    <div style="height: 120px; width: 150%; margin-top: 20px;">
+      <mat-form-field appearance="outline" style="width: 100%; height: 100%; border-color: rgb(51, 173, 35); display: flex; align-items: center; justify-content: center; font-size: xx-large;">
+        <mat-label>No. Socio</mat-label>
+        <input matInput
+               type="text"
+               ngModel [(ngModel)]="idUsuario"
+               #myInput (keyup.enter)="onEnter()"
+
+               (focus)="inputFocused = true"
+               (blur)="inputFocused = false">
+      </mat-form-field>
+    </div>
+  </div>
+  <audio id="myAudio">
+    <source src="../../../../assets/audio.mp3" type="audio/mpeg">
+    Tu navegador no soporta la reproducción de audio.
+  </audio>
+
+</div>
+
+<div style="width: 97%; height: 100%; padding: 15px; display: flex; justify-content: center; align-items: center; background-color: #ffff;" (focus)="focusInput()"></div>
+<div style="width: 97%; height: 100%; padding: 15px; display: flex; justify-content: center; align-items: center; background-color: #ffffffd2;" (focus)="focusInput()"></div>
+<div style="width: 97%; height: 100%; padding: 15px; display: flex; justify-content: center; align-items: center; background-color: #ffffffb0;" (focus)="focusInput()"></div>
+<div style="width: 97%; height: 100%; padding: 15px; display: flex; justify-content: center; align-items: center; background-color: #ffffff83;" (focus)="focusInput()"></div>
+<div style="width: 97%; height: 100%; padding: 15px; display: flex; justify-content: center; align-items: center; background-color: #ffffff60;" (focus)="focusInput()"></div>
+<div style="width: 97%; height: 100%; padding: 15px; display: flex; justify-content: center; align-items: center; background-color: #ffffff2d;" (focus)="focusInput()"></div>
+
+

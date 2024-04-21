@@ -1,0 +1,17 @@
+<div style="margin: 2%; position: relative;">
+
+  <mat-tab-group (selectedTabChange)="tabChanged($event)">
+    <mat-tab label="Asignadas"> <app-rutinas-asignados></app-rutinas-asignados> </mat-tab>
+    <mat-tab label="Rutinas"> <app-rutinas-list></app-rutinas-list> </mat-tab>
+    <mat-tab label="Ejercicios"> <app-ejercicios></app-ejercicios> </mat-tab>
+  </mat-tab-group>
+
+</div>
+
+<!--
+
+  (click)="changeView('rut-list
+(click)="changeView('ejercicios')"
+(click)="changeView('asignadas')"
+
+-->

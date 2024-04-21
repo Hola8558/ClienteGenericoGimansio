@@ -1,0 +1,45 @@
+.hksdfa:hover{
+  background-color: rgba(192, 192, 192, 0.226);
+}
+
+.hksdfa{
+  height: 115px;
+  width: 70px;
+  background: rgba(70, 70, 70, 0.226);
+  position: absolute;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+  font-size: small;
+  display: flex; /* Cambiado a flex para usar flexbox */
+  align-items: center;
+  padding-left: 25px;
+  color: black; /* Establece el color de la fuente a negro */
+  text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.548), -1px -1px 0px rgba(255, 255, 255, 0.548), 1px -1px 0px rgba(255, 255, 255, 0.548), -1px 1px 0px rgba(255, 255, 255, 0.548); /* Agrega un sombreado blanco al texto */
+}
+
+.hksdfaggggg{
+  height: 115px;
+  width: 70px;
+  background: rgba(70, 70, 70, 0.226);
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+  font-size: small;
+  display: flex;
+  align-items: center;
+  padding-left: 25px;
+  color: black;
+  text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.548),
+    -1px -1px 0px rgba(255, 255, 255, 0.548),
+    1px -1px 0px rgba(255, 255, 255, 0.548),
+    -1px 1px 0px rgba(255, 255, 255, 0.548);
+}
+
+.custom-file-input {
+  display: none; /* Oculta el input de archivo original */
+}
+
+.button-container {
+  position: relative;
+}

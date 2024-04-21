@@ -1,0 +1,748 @@
+:host {
+  display: block;
+}
+
+
+.addbutton:hover{
+  animation: addButton 0.3s forwards;
+}
+
+.addbutton:not(:hover) {
+  animation: addButtonReverse 0.3s forwards;
+}
+
+.addbutton{
+  background: #16ad43;
+  color: #d4d4d4;
+  height: 50px;
+  width: 50px;
+  font-size: x-large;
+  border: none;
+  border-radius: 100px;
+}
+
+
+.mat-mdc-dialog-container {
+
+  width: 800px;
+  background: rgb(130,245,153);
+  background: linear-gradient(90deg, rgba(255,255,255,1) 64%, rgba(2,0,36,0) 64%, rgba(255,255,255,0) 66%, rgba(255,255,255,1) 66%);
+
+}
+
+.mat-mdc-dialog-container .mdc-dialog__title {
+
+  width: 800px;
+  background: rgb(130,245,153);
+
+}
+
+.containerHijo{
+  height: 100%;
+  margin-left: 20px;
+  background: rgb(255, 255, 255);
+  border-radius: 10px;
+  z-index: 1001;
+  /*background: linear-gradient(90deg, rgba(255,255,255,1) 64%, rgba(2,0,36,0) 64%, rgba(255,255,255,0) 66%, rgba(255,255,255,1) 66%);*/
+}
+
+.containerPadre{
+  position: fixed;
+  top: 0px; /* Altura del navbar, ajusta según sea necesario */
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.233);
+  left: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 500;
+}
+
+.butonClose{
+  font-size: 7px;
+  position: fixed;
+  margin-top: -18px;
+  margin-right: 10px;
+  right: -11px;
+}
+
+.customScroll {
+  scrollbar-width: thin;
+  border-radius: 10px;
+  scrollbar-color: #ddd #fff; /* color del pulgar y del área de desplazamiento */
+}
+
+.customScroll::-webkit-scrollbar {
+  border-radius: 10px;
+  width: 12px; /* ancho del área de desplazamiento */
+}
+
+.customScroll::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #ddd; /* color del pulgar */
+}
+
+.customScroll::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: #fff; /* color del área de desplazamiento */
+}
+
+.customScroll::-webkit-scrollbar-button {
+  width: 0; /* Ancho de la flecha */
+  height: 0; /* Altura de la flecha */
+  display: none;
+  background-color: transparent; /* Hacer la flecha transparente */
+}
+
+.slide-in-fwd-center {
+	-webkit-animation: slide-in-fwd-center 0.2s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+	        animation: slide-in-fwd-center 0.2s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+@-webkit-keyframes slide-in-fwd-center {
+  0% {
+    -webkit-transform: translateZ(-1400px);
+            transform: translateZ(-1400px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+    opacity: 1;
+  }
+}
+@keyframes slide-in-fwd-center {
+  0% {
+    -webkit-transform: translateZ(-1400px);
+            transform: translateZ(-1400px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+    opacity: 1;
+  }
+}
+
+.slide-out-bck-center {
+	-webkit-animation: slide-out-bck-center 0.2s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+	        animation: slide-out-bck-center 0.2s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+}
+
+@-webkit-keyframes slide-out-bck-center {
+  0% {
+    -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translateZ(-1100px);
+            transform: translateZ(-1100px);
+    opacity: 0;
+  }
+}
+@keyframes slide-out-bck-center {
+  0% {
+    -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translateZ(-1100px);
+            transform: translateZ(-1100px);
+    opacity: 0;
+  }
+}
+
+.title{
+  border: solid 1px #ccccccb2;
+  min-height: 15px;
+  background: #21910a3d;
+  backdrop-filter: blur(20px);
+  color: rgba(0, 0, 0, 0.87);
+  padding: 10px;
+  padding: 10px;
+  border-radius: 4px;
+  border-color: none;
+}
+
+.titleEjer{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 81px;
+  font-size: smaller;
+  right: 0;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  border-radius: 0 0 10px 10px;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.buttonSliderForward{
+  height: 85px;
+  width: 20px;
+  margin-top: 20px;
+  position: absolute;
+  z-index: 1000;
+  background-color: rgba(177, 177, 177, 0.541);
+  backdrop-filter: blur(5px);
+  border-radius: 6px;
+
+}
+
+.buttonSliderBack{
+  height: 85px;
+  width: 20px;
+  position: absolute;
+  z-index: 1000;
+  margin-top: 20px;
+  right: 0;
+  background-color: rgba(177, 177, 177, 0.541);
+  backdrop-filter: blur(5px);
+  border-radius: 6px;
+}
+
+
+.buttonSliderForward:hover{
+  animation: buttonSliderForwardAnim 0.2s forwards;
+}
+.buttonSliderForward:not(:hover){
+  animation: buttonSliderForwardReverse 0.2s forwards;
+}
+.buttonSliderBack:hover{
+  animation: buttonSliderBackAnim 0.2s forwards;
+}
+.buttonSliderBack:not(:hover){
+  animation: buttonSliderBackReverse 0.2s forwards;
+}
+
+/*Animaciones buttonSlider*/
+
+@keyframes buttonSliderForwardAnim {
+  from{
+    height: 85px;
+    width: 20px;
+    margin-top: 20px;
+    position: absolute;
+    z-index: 1000;
+    background-color: rgba(177, 177, 177, 0.541);
+    backdrop-filter: blur(5px);
+    border-radius: 6px;
+  }
+  to {
+    background-color: rgba(223, 221, 221, 0.5);
+    color: #ffffff;
+    border: none;
+  }
+}
+
+@keyframes buttonSliderForwardReverse {
+  from{
+    background-color: rgba(223, 221, 221, 0.5);
+    color: #ffffff;
+    border: none;
+  }
+  to {
+    height: 85px;
+    width: 20px;
+    margin-top: 20px;
+    position: absolute;
+    z-index: 1000;
+    background-color: rgba(177, 177, 177, 0.541);
+    backdrop-filter: blur(5px);
+    border-radius: 6px;
+  }
+}
+
+@keyframes buttonSliderBackAnim {
+  from{
+    height: 85px;
+    width: 20px;
+    position: absolute;
+    z-index: 1000;
+    margin-top: 20px;
+    right: 0;
+    background-color: rgba(177, 177, 177, 0.541);
+    backdrop-filter: blur(5px);
+    border-radius: 6px;
+  }
+  to {
+    background-color: rgba(223, 221, 221, 0.5);
+    color: #ffffff;
+    border: none;
+  }
+}
+
+@keyframes buttonSliderBackReverse {
+  from{
+    background-color: rgba(223, 221, 221, 0.5);
+    color: #ffffff;
+    border: none;
+  }
+  to {
+    height: 85px;
+    width: 20px;
+    position: absolute;
+    z-index: 1000;
+    margin-top: 20px;
+    right: 0;
+    background-color: rgba(177, 177, 177, 0.541);
+    backdrop-filter: blur(5px);
+    border-radius: 6px;
+  }
+}
+
+/* ANIMACIONES CAROUSEL EJERCICIOS */
+
+.slide-left {
+	-webkit-animation: slide-left 0.2s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+          animation: slide-left 0.2s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+@-webkit-keyframes slide-left {
+  0% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+  100% {
+    -webkit-transform: translateX(-85px);
+            transform: translateX(-85px);
+  }
+}
+
+@keyframes slide-left {
+  0% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+  100% {
+    -webkit-transform: translateX(-85px);
+            transform: translateX(-85px);
+  }
+}
+
+.slide-right {
+	-webkit-animation: slide-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+	        animation: slide-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+@-webkit-keyframes slide-right {
+  0% {
+    -webkit-transform: translateX(-85px);
+            transform: translateX(-85px);
+  }
+  100% {
+    -webkit-transform: translateX(40px);
+            transform: translateX(40px);
+  }
+}
+@keyframes slide-right {
+  0% {
+    -webkit-transform: translateX(-85px);
+            transform: translateX(-85px);
+  }
+  100% {
+    -webkit-transform: translateX(40px);
+            transform: translateX(40px);
+  }
+}
+
+/* TARJETAS EJERCICIOS */
+ .carExcerciseList {
+  width: 220px;
+  height: 120px;
+  border-radius: 5px;
+  padding: 6px;
+  background-color: #ffffff;
+  margin-bottom: 10px;
+ }
+
+ .estiloLibreCir{
+  width: 220px;
+  min-height: 120px;
+  height: fit-content;
+  border-radius: 5px;
+  margin-bottom: 10px;
+ }
+
+ .carExcerciseListCircuito {
+  width: 220px;
+  height: 120px;
+  border-radius: 5px;
+  padding: 6px;
+  background-color: #ffffff;
+  margin-bottom: 10px;
+ }
+
+ .carExcerciseListCircuito:hover {
+  animation: tarjetSmall 0.6s both;
+ }
+
+ .reOrderButonCir{
+  background-color: #18bd704f; height: 50%; border-radius: 10px; backdrop-filter: blur(5px); box-shadow: none; border-color: #ebebeb;
+ }
+
+ .reOrderButonCir:hover{
+  animation: buttonCircuitoMover 0.2s both;
+ }
+
+ @keyframes buttonCircuitoMover {
+    from {background-color: #18bd704f; height: 50%; border-radius: 10px; backdrop-filter: blur(5px); box-shadow: none; border-color: #ebebeb;}
+    to { background-color: #03e77d7e; height: 50%; border-radius: 10px; backdrop-filter: blur(5px); box-shadow: none; border-color: #00ffdd8e; }
+ }
+
+ @keyframes tarjetSmall {
+  from {
+    width: 220px;
+    height: 120px;
+    border-radius: 5px;
+    padding: 6px;
+    background-color: #ffffff;
+    margin-bottom: 10px;
+  }
+  to {
+    width: 120px;
+    transform: translateX(100px);
+  }
+ }
+
+ .carExcerciseListCircuito:hover > .imgCardAnim{
+  animation: imgCardSlice 0.5s both;
+ }
+
+ .imgCardAnim {
+  width: 40%;
+}
+
+ @keyframes imgCardSlice{
+  from{
+    width: 40%;
+  } to {
+    transform: translateX(500px);
+    width: 100%;
+  }
+ }
+
+ .compactTarjet{
+  width: 120px;
+  height: 120px;
+  right: 0;
+  transform: translateX(100px);
+  border-radius: 5px;
+  padding: 6px;
+  background-color: #ffffff;
+  margin-bottom: 10px;
+ }
+
+ .numeroesquinaPrinc{
+  z-index: 2; width: 30px; padding-top: 15px;padding-left: 10px; justify-content: center; align-items: center; height: 30px; border-radius: 0 50px 0 5px; background-color: rgba(61, 173, 39, 0.856); position: absolute; bottom: 0; left: 0;
+ }
+
+ .numeroEnCircuito{
+  z-index: 2; width: 30px; padding-top: 15px;padding-left: 10px; justify-content: center; align-items: center; height: 30px; border-radius: 0 50px 0 5px; position: absolute; bottom: 0; left: 0;
+ }
+
+ /* SCROLL PRINCIPAL */
+
+ .containerHijo::-webkit-scrollbar {
+  width: 3px;     /* Tamaño del scroll en vertical */
+  height: 8px;    /* Tamaño del scroll en horizontal */
+
+}
+
+/* Ponemos un color de fondo y redondeamos las esquinas del thumb */
+.containerHijo::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+
+/* Cambiamos el fondo y agregamos una sombra cuando esté en hover */
+.containerHijo::-webkit-scrollbar-thumb:hover {
+  background: #b3b3b3;
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+/* Cambiamos el fondo cuando esté en active */
+.containerHijo::-webkit-scrollbar-thumb:active {
+  background-color: #999999;
+}
+
+/* BOTON ELIMINAR EJERCICIO */
+
+.small-button {
+  position: relative;
+  top: 0;
+  right: 0;
+  margin-top: 5px;
+  margin-right: 5px;
+  border-radius: 50%;
+  width: 30px; /* Ajusta el ancho según sea necesario */
+  height: 30px; /* Ajusta la altura según sea necesario */
+}
+
+.small-button mat-icon {
+  font-size: 16px; /* Ajusta el tamaño de la fuente según sea necesario */
+  top: 0;
+  left: 0;
+  transform: translateY(-35px);
+  transform: translateX(-8px);
+}
+
+
+/*  RUTINA SSRIES REPS INPUT */
+.form__group {
+  position: relative;
+  padding: 2px 0 0;
+
+  width: 80%;
+}
+
+.form__field {
+  font-family: inherit;
+  width: 100%;
+  border: 0;
+  border-bottom: 2px solid #9b9b9b;
+  outline: 0;
+  font-size: 12px;
+  color: #444444;
+  padding: 8px 0;
+  background: transparent;
+  transition: border-color 0.2s;
+
+  &::placeholder {
+    color: transparent;
+  }
+
+  &:placeholder-shown ~ .form__label {
+    font-size: 14px;
+    cursor: text;
+    top: 14px;
+  }
+}
+
+.form__label {
+  position: absolute;
+  top: -10px;
+  display: block;
+  transition: 0.2s;
+  font-size: 12px;
+  color: #9b9b9b;
+}
+
+.form__field:focus {
+  ~ .form__label {
+    position: absolute;
+    top: -12px;
+    display: block;
+    transition: 0.2s;
+    font-size: 14px;
+    color: #11998e;
+    font-weight:500;
+  }
+  padding-bottom: 6px;
+  font-weight: 500;
+  border-width: 3px;
+  border-image: linear-gradient(to right, #11998e,#38ef7d);
+  border-image-slice: 1;
+}
+/* reset input */
+.form__field{
+  &:required,&:invalid { box-shadow:none; }
+}
+/* demo */
+body {
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-size: 14px;
+  background-color:#222222;
+}
+
+
+/* BUTTON CIRCUITO */
+
+.circuit_button:hover{
+  animation: buton_CA 0.2s both;
+}
+
+.circuit_button_icon:hover{
+  animation: butonIcon_CA 0.2s both;
+}
+
+.circuit_button{
+  animation: Inverse_buton_CA 0.2s both;
+}
+
+.circuit_button_icon{
+  animation: Inverse_butonIcon_CA 0.2s both;
+}
+
+@keyframes buton_CA {
+  from {
+    height: 70px;
+    width: 60px;
+    background-color: #1cbe1cad;
+    position: absolute;
+    top: 30%;
+    left: -25px;
+    border-radius: 10px 0 0 10px;
+    display: block;
+    justify-content: left;
+    align-items: center;
+    backdrop-filter: blur(10px);
+  }
+
+  to {
+    left: -35px;
+    background-color: #4de710fb;
+  }
+}
+
+@keyframes butonIcon_CA {
+  from {
+    background-color: #ebebeb00; height: 100%; width: 100%;
+  }
+
+  to{
+    color: #ffffff;
+  }
+}
+
+@keyframes Inverse_buton_CA {
+  from {
+    left: -35px;
+    background-color: #4de710fb;
+  }
+
+  to {
+    height: 70px;
+    width: 60px;
+    background-color: #99f07ed7;
+    position: absolute;
+    top: 30%;
+    left: -25px;
+    border-radius: 10px 0 0 10px;
+    display: block;
+    justify-content: left;
+    align-items: center;
+    backdrop-filter: blur(10px);
+  }
+}
+
+@keyframes Inverse_butonIcon_CA {
+  from {
+    color: #ffffff;
+  }
+
+  to{
+    background-color: #ebebeb00; height: 100%; width: 100%;
+  }
+}
+
+/*ERROR MEsg*/
+
+.errorMsg{
+  animation: errorMsgSlide 0.4s both;
+}
+
+.errorMsgClose{
+  animation: errorMsgSlideClose 0.4s both;
+}
+
+@keyframes errorMsgSlide {
+    from{ transform: translateY(40px); transform: scaleX(0); }
+    to { transform: translateY(0px); transform: scaleX(1); }
+}
+
+@keyframes errorMsgSlideClose {
+  from{ transform: translateY(0px); transform: scaleX(1); }
+  to { transform: translateY(40px); transform: scaleX(0); }
+}
+
+.addbutton{
+  background: #16ad43;
+  color: #d4d4d4;
+  height: 50px;
+  width: 50px;
+  font-size: x-large;
+  border: none;
+  border-radius: 100px;
+}
+
+.acceptButton{
+  background: #165cad;
+  color: #d4d4d4;
+  height: 50px;
+  width: 50px;
+  font-size: x-large;
+  border: none;
+  border-radius: 100px;
+}
+
+.deleteElementExercise{
+  background: #ad1616;
+  color: #d4d4d4;
+  height: 50px;
+  width: 50px;
+  font-size: x-large;
+  border: none;
+  border-radius: 100px;
+}
+
+.deletingModeClass{
+  margin-bottom: 15px; margin-top: 15px; min-height: 140px;
+  animation: scarryOfDelete 0.2s both;
+}
+
+@keyframes scarryOfDelete {
+  0% {
+    background-color: rgb(236, 108, 108);
+    transform: translateX(0);
+  }
+  25% {
+    background-color: rgb(236, 108, 108);
+    transform: translateX(5px);
+  }
+  50% {
+    background-color: rgb(236, 108, 108);
+    transform: translateX(-5px);
+  }
+  75% {
+    background-color: rgb(236, 108, 108);
+    transform: translateX(5px);
+  }
+  100% {
+    background-color: rgb(236, 108, 108);
+    transform: translateX(0);
+  }
+}
+
+
+.ciruitButnMobil{
+  height: 70px;
+    width: 60px;
+    background-color: #1cbe1cad;
+    border-radius: 10px;
+    display: block;
+    justify-content: left;
+    align-items: center;
+    backdrop-filter: blur(10px);
+}
+
+.simpleCardMobil{
+  margin-bottom: 15px; margin-top: 15px; min-height: 140px;
+}
+
+.selectedCardMobil{
+  margin-bottom: 15px; margin-top: 15px; min-height: 140px;
+  width: 80%;
+  transform: translateX(10%);
+}

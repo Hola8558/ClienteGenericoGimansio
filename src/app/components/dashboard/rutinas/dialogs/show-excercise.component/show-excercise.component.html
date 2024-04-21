@@ -1,0 +1,15 @@
+<h1 mat-dialog-title *ngIf="error === '' " style="background: rgba(21, 139, 21, 0.616);color: #fff;">{{ejercicio.nombre}}</h1>
+<h1 mat-dialog-title *ngIf="error != '' " style="background: #cd9797;">Error al mostrar</h1>
+<div mat-dialog-content *ngIf="error === '' ">
+  <div style="width: 100%; display: flex; align-items: center; justify-content: center;">
+    <div style="height: 100%; align-items: center; justify-content: center; width: 40%; display:flex; ">
+      <img [src]="ejercicio.url"/>
+    </div>
+    <div style="height: 100%; justify-content: center; align-items: center; width: 58%; margin-left: 2%; display:flex; ">
+      {{ejercicio.description}}fdsfd
+    </div>
+  </div>
+</div>
+<div mat-dialog-actions style="display: flex; justify-content: space-between;">
+  <button mat-button (click)="onNoClick()" style="background: #e18d96; color: #fff;" cdkFocusInitial>Ok</button>
+</div>

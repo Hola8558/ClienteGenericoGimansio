@@ -1,0 +1,113 @@
+<div *ngIf="!spinnerUpload">
+  <h1 mat-dialog-title>Editar Información</h1>
+<div mat-dialog-content>
+  <form [formGroup]="form" (ngSubmit)="ingresar()" style="display: block; justify-content: center; height: 100%; align-items: center;">
+
+    <div *ngIf="!isSmallScreen">
+      <div class="div" style="display: inline-flex; width: 100%;">
+        <mat-form-field style="width: 40%; margin-right: 3px;">
+          <mat-label>Nombre</mat-label>
+          <input type="text" matInput autocomplete="off" formControlName="nombre">
+        </mat-form-field>
+
+        <mat-form-field style="width: 60%;">
+          <mat-label>Apellido</mat-label>
+          <input type="text" matInput autocomplete="off" formControlName="apellidos">
+        </mat-form-field>
+      </div>
+
+      <mat-form-field style="width: 100%;">
+        <mat-label>Correo electrónico</mat-label>
+        <input type="text" matInput autocomplete="off" formControlName="correo">
+      </mat-form-field>
+
+      <div *ngIf="changePass">
+        <div class="div" style="display: inline-flex; width: 100%;">
+          <mat-form-field style="width: 50%;margin-right: 3px;">
+            <mat-label>Contraseña</mat-label>
+            <input type="password" matInput autocomplete="off" formControlName="pass">
+          </mat-form-field>
+
+          <mat-form-field style="width: 50%;">
+            <mat-label>Confirmar contraseña</mat-label>
+            <input type="password" matInput autocomplete="off" formControlName="passConfirmed">
+          </mat-form-field>
+        </div>
+
+        <button mat-button (click)="changePass = false">Cancelar</button>
+
+      </div>
+
+      <div *ngIf="!changePass">
+          <button mat-button (click)="changePass = true">Cambiar contraseña</button>
+      </div>
+
+    </div>
+
+    <div *ngIf="isSmallScreen">
+
+        <mat-form-field >
+          <mat-label>Nombre</mat-label>
+          <input type="text" matInput autocomplete="off" formControlName="nombre">
+        </mat-form-field>
+
+        <mat-form-field >
+          <mat-label>Apellido</mat-label>
+          <input type="text" matInput autocomplete="off" formControlName="apellidos">
+        </mat-form-field>
+
+
+      <mat-form-field >
+        <mat-label>Correo electrónico</mat-label>
+        <input type="text" matInput autocomplete="off" formControlName="correo">
+      </mat-form-field>
+
+      <div *ngIf="changePass">
+        <mat-form-field >
+          <mat-label>Contraseña</mat-label>
+          <input type="password" matInput autocomplete="off" formControlName="pass">
+        </mat-form-field>
+        <mat-form-field >
+          <mat-label>Confirmar contraseña</mat-label>
+          <input type="password" matInput autocomplete="off" formControlName="passConfirmed">
+
+          <mat-error *ngIf="errorNoMatchPass">
+            Las contraseñas no coinciden.
+          </mat-error>
+        </mat-form-field>
+
+        <button mat-button (click)="changePass = false">Cancelar</button>
+      </div>
+
+      <div *ngIf="!changePass">
+        <button mat-button (click)="changePass = true">Cambiar contraseña</button>
+      </div>
+
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions style="padding-left: 2rem;">
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+  <button type="submit" (click)="submitForm()" mat-flat-button color="primary" [disabled]="form.invalid" class="ancho boton">Aceptar</button>
+  <mat-error *ngIf="errorNoMatchPass" style="margin-left: 3px; margin-top: 3px;">
+    Las contraseñas no coinciden.
+  </mat-error>
+</div>
+</div>
+
+<!--PANTALLA NO GRANDE-->
+<div *ngIf="spinnerUpload && isSmallScreen" style="width: 250px; height: 300px; display: flex; align-items: center; justify-content: center;">
+  <mat-spinner diameter="50"></mat-spinner>
+</div>
+<div *ngIf="spinnerUpload && isSmallScreen" style="width: 250px; height: 300px; display: flex; align-items: center; justify-content: center;">
+  <h3>{{messageError}}</h3>
+</div>
+<!--PANTALLA GRANDE-->
+<div *ngIf="spinnerUpload && !isSmallScreen" style="width: 400px; height: 300px; display: flex; align-items: center; justify-content: center;">
+  <mat-spinner diameter="50"></mat-spinner>
+</div>
+<div *ngIf="spinnerUpload && !isSmallScreen" style="width: 400px; height: 300px; display: flex; align-items: center; justify-content: center;">
+  <h3>{{messageError}}</h3>
+</div>
+
+

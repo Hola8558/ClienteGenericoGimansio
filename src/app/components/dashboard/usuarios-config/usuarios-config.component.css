@@ -1,0 +1,51 @@
+.body {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  align-items: center;
+  padding: 2rem;
+}
+
+.mat-table {
+  width: 100%;
+  overflow-x: auto;
+}
+
+
+@media (max-width: 600px){
+  .responsive{
+    display: inline-block;
+  }
+
+  .opc{
+    min-width: 170px;
+  }
+}
+
+.icon{
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.mat-dialog-container {
+  background: rgba(255, 255, 255, 0.8); /* Fondo con opacidad */
+  backdrop-filter: blur(8px); /* Filtro de desenfoque */
+}
+
+.organize-over{
+  position: relative;
+  width: 100%;
+}
+
+.add-button-bigScreen {
+  position: relative;
+  top: -15px; /* Ajusta el valor según sea necesario para el margen superior */
+  right: -90%; /* Ajusta el valor según sea necesario para el margen derecho */
+}
+
+.add-button-smallScreen {
+  position: relative;
+  top: 5%;
+  margin-bottom: 8%;
+  left: 40%;
+}

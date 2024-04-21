@@ -1,0 +1,17 @@
+.last-option {
+  background-color: #e3ffdd; /* Cambia el color según tus necesidades */
+  /* Otros estilos para la última opción */
+}
+
+.url-input-container {
+  display: flex;
+  align-items: center;
+}
+
+.url-input-container input {
+  flex: 1;
+}
+
+.url-input-container button {
+  margin-left: 8px; /* Ajusta el margen según tus preferencias */
+}

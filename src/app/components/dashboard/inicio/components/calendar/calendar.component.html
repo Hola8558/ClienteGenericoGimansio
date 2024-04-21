@@ -1,0 +1,43 @@
+<div class="wrapper-calendar" *ngIf="!isSmallScreen" style="width: 280px;">
+	<div class="header-calendar">
+		<div>
+			<button (click)="changeMonth(-1)" class="btn-prev">←</button>
+		</div>
+		<h1>{{dayToTitle}}</h1>
+		<div>
+			<button (click)="changeMonth(1)" class="btn-next">→</button>
+		</div>
+	</div>
+	<ol style="grid-template-columns: repeat(5, 1fr);">
+<!--		<li *ngFor="let day of week" class="day-name">{{day}}</li>
+    | slice:0:3   -->
+        <li (click)="clickDay(day)" [style.gridColumnStart]=" 'auto'"
+         *ngFor="let day of monthSelect;let first = first">
+          <span *ngIf="!daysAsisted.includes(day?.value)">{{day?.value}}</span>
+			    <span *ngIf="daysAsisted.includes(day?.value)" class="alert alert-success">{{day?.value}}</span>
+
+		    </li>
+	</ol>
+</div>
+
+<div class="wrapper-calendar" *ngIf="isSmallScreen" style="width: 200px;">
+	<div class="header-calendar">
+		<div>
+			<button (click)="changeMonth(-1)" class="btn-prev">←</button>
+		</div>
+		<h1>{{dayToTitle}}</h1>
+		<div>
+			<button (click)="changeMonth(1)" class="btn-next">→</button>
+		</div>
+	</div>
+	<ol style="grid-template-columns: repeat(4, minmax(0, 1fr));">
+<!--		<li *ngFor="let day of week" class="day-name">{{day}}</li>
+    | slice:0:3   -->
+        <li (click)="clickDay(day)" [style.gridColumnStart]=" 'auto'"
+         *ngFor="let day of monthSelect;let first = first">
+          <span *ngIf="!daysAsisted.includes(day?.value)">{{day?.value}}</span>
+			    <span *ngIf="daysAsisted.includes(day?.value)" class="alert alert-success">{{day?.value}}</span>
+
+		    </li>
+	</ol>
+</div>

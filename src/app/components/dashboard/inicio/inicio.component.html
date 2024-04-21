@@ -1,0 +1,306 @@
+<div [ngClass]="{ 'slide-in-left': applyAnimationToLeft}">
+
+  <app-cdk-bolsa-info-client *ngIf="!isSmallScreen" style="z-index: 1;" [(show)]="elementClientShow" ></app-cdk-bolsa-info-client>
+
+  <div class="body" style="margin: 2%; position: relative;">
+
+    <!--    PANTALLA GRANDE     -->
+    <!--    PANTALLA GRANDE     -->
+    <!--    PANTALLA GRANDE     -->
+    <div *ngIf="!isSmallScreen">
+      <div class="fondo">
+        <div style="display: flex; justify-content: space-between;">
+          <mat-form-field matTooltip="Buscar" style="width: 70%;">
+            <mat-label>Buscar</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Buscar por número de cuenta o nombre" #input>
+          </mat-form-field>
+
+          <div class="buttons"  style="margin-left: 2%;">
+            <button mat-fab class="button" (click)="createClient()" matTooltip="Añadir cliente" style="background: #1b4b1b; margin-right: 20px;" aria-label="Example icon button with a home icon">
+              <mat-icon>add</mat-icon>
+            </button>
+
+            <button mat-fab class="button" (click)="changeView()" matTooltip="Opciones de administrador" style="background: #1b4b1b;" aria-label="Example icon button with a home icon">
+              <mat-icon>arrow_right_alt</mat-icon>
+            </button>
+
+          </div>
+        </div>
+
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="border-radius: 15px; justify-content: space-between;">
+
+          <ng-container matColumnDef=" " style="width: 2px;">
+            <th mat-header-cell *matHeaderCellDef style="width: 2%;"></th>
+            <td mat-cell (click)="sendDataViewClient(element._id)" *matCellDef="let element" style="width: 2px;" [style.border-left]="getColor(element)" class="rounded-left" >  </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Número de Cuenta">
+            <th mat-header-cell *matHeaderCellDef style="width: 15%;"> Número de Cuenta </th>
+            <td mat-cell (click)="sendDataViewClient(element._id)" *matCellDef="let element" style="margin-bottom: 3px;"> {{element.ncuenta}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Nombre">
+            <th mat-header-cell *matHeaderCellDef style="width: 33%;"> Nombre </th>
+            <td mat-cell (click)="sendDataViewClient(element._id)" *matCellDef="let element" style="margin-bottom: 3px;"> {{element.nombre}} {{element.apellidos}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Registrar Entrada">
+            <th mat-header-cell *matHeaderCellDef style="width: 33%;"> Registrar Entrada </th>
+            <td mat-cell (click)="sendDataViewClient(element._id)" *matCellDef="let element" style="margin-bottom: 3px;">
+              <button style="z-index: 0;" mat-flat-button (click)="registrarEntrada($event,element._id)" *ngIf="element.fechaVencimiento != 'deBaja' " class="registeButon">Registrar Entrada</button>
+              <button style="z-index: 0;" mat-flat-button (click)="renovarMensualidad($event,element._id)" *ngIf="element.fechaVencimiento === 'deBaja' " class="renovarButon">Renovar Membresia</button>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Opciones">
+            <th mat-header-cell *matHeaderCellDef style="width: 20%;"> Opciones </th>
+            <td mat-cell (click)="sendDataViewClient(element._id)" *matCellDef="let element" style="margin-bottom: 3px;">
+              <button style="z-index: 0; color: rgb(17, 37, 5);" mat-button (click)="editarCliente($event,element._id)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button style="z-index: 0; color: rgb(17, 37, 5);" mat-button (click)="deleteCliente($event,element._id)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell back" colspan="5">Sin clientes disponiples</td>
+          </tr>
+        </table>
+
+
+      </div>
+
+      <!-- <form [formGroup]="form" (ngSubmit)="ingresar()" style="display: block; justify-content: center; height: 100%; align-items: center; margin-top: 30px;">
+
+        <div style="display: flex; width: 100%; ">
+          <mat-form-field>
+            <mat-label>Número de Cuenta</mat-label>
+            <input type="text" matInput formControlName="ncuenta">
+          </mat-form-field>
+
+          <mat-form-field style="margin-left: 20px;">
+            <mat-label>Contraseña</mat-label>
+            <input type="password" matInput formControlName="pass">
+          </mat-form-field>
+
+          <div style="margin-bottom: 15px; margin-left: 10%;">
+            <mat-label>Genero</mat-label>
+            <mat-radio-group formControlName="gender">
+              <mat-radio-button color="primary" value="H">Hombre</mat-radio-button>
+              <mat-radio-button value="M">Mujer</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+
+
+        <div class="div" style="display: inline-flex; width: 100%;">
+          <mat-form-field style="width: 40%; margin-right: 3px;">
+            <mat-label>Nombre</mat-label>
+            <input type="text" matInput autocomplete="off" autofocus formControlName="nombre">
+          </mat-form-field>
+
+          <mat-form-field style="width: 60%;">
+            <mat-label>Apellidos</mat-label>
+            <input type="text" matInput autocomplete="off" formControlName="apellidos">
+          </mat-form-field>
+        </div>
+
+        <div class="div" style="display: inline-flex; width: 100%;">
+          <mat-form-field style="width: 50%; margin-right: 3px;">
+            <mat-label>Número Telefónico</mat-label>
+            <input type="text" matInput autocomplete="off" formControlName="telefono">
+          </mat-form-field>
+          <mat-form-field style="width: 50%;">
+            <mat-label>Número de Emergencia</mat-label>
+            <input type="text" matInput autocomplete="off" formControlName="emergencia">
+          </mat-form-field>
+        </div>
+
+
+        <div class="div" style="display: inline-flex; width: 100%;">
+          <mat-form-field style="width: 50%; margin-right: 3px;">
+            <mat-label>Fecha de Pago</mat-label>
+            <input matInput [matDatepicker]="picker1" [max]="date"  formControlName="fechaPago">
+            <mat-hint>DD/MM/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1 matDatepicker></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field style="width: 50%;">
+            <div *ngIf="form.get('mensualidad')?.value !== 'Convenio'">
+              <mat-label>Tipo de mensualidad</mat-label>
+              <mat-select formControlName="mensualidad" name="mensualidad">
+                <mat-option *ngFor="let m of tipos" [value]="m">{{m}}</mat-option>
+              </mat-select>
+            </div>
+            <div *ngIf="form.get('mensualidad')?.value === 'Convenio'" style="display: flex; align-items: center;">
+              <div style="margin-right: auto;">
+                <mat-label>Precio del convenio</mat-label>
+                <input matInput formControlName="Precio" type="number" name="Precio">
+              </div>
+              <div>
+                <button mat-icon-button (click)="cancelarConvenio()" style="margin-top: 0px;">
+                  <mat-icon>clear</mat-icon>
+                </button>
+              </div>
+            </div>
+          </mat-form-field>
+        </div>
+      </form> -->
+    </div>
+
+    <!--    PANTALLA PEQUEÑA     -->
+    <!--    PANTALLA PEQUEÑA     -->
+    <!--    PANTALLA PEQUEÑA     -->
+    <!--    PANTALLA PEQUEÑA     -->
+    <div *ngIf="isSmallScreen">
+     <!-- <div class="fondo">
+        <div style="display: block;">
+          <mat-form-field matTooltip="Buscar" style="width: 100%;">
+            <mat-label>Buscar</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Buscar por número de cuenta o nombre" #input>
+          </mat-form-field>
+
+          <div class="buttons"  style="display: flex; justify-content: center; margin-bottom: 20px;">
+            <button mat-fab class="button" (click)="createClient()" matTooltip="Añadir cliente" style="background: #1b4b1b; margin-right: 20px;" aria-label="Example icon button with a home icon">
+              <mat-icon>add</mat-icon>
+            </button>-->
+            <button mat-fab class="button" (click)="changeView()" matTooltip="Opciones de administrador" style="background: #1b4b1b;" aria-label="Example icon button with a home icon">
+              <mat-icon>arrow_right_alt</mat-icon>
+            </button>
+         <!-- </div>
+        </div>
+
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="border-radius: 15px; justify-content: space-between;">
+
+          <ng-container matColumnDef=" " style="width: 2px;">
+            <th mat-header-cell *matHeaderCellDef style="width: 2%;"></th>
+            <td mat-cell (click)="sendDataViewClientDialog(element._id)" *matCellDef="let element" style="width: 2px;" [style.border-left]="getColor(element)" class="rounded-left" >  </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Cliente">
+            <th mat-header-cell *matHeaderCellDef style="width: 98%;">Cliente</th>
+            <td mat-cell (click)="sendDataViewClientDialog(element._id)" *matCellDef="let element" style="margin-bottom: 3px;">
+            <div style="display: block; justify-content: center; width: 100%;">
+
+              <div style="width: 100%;display: flex;flex-direction: column; justify-content: center; margin-top: 15px; ">
+                <span style="justify-content: center;">
+                  <span> {{element.ncuenta}} </span>
+                  <span> {{element.nombre}} </span>
+                  <span> {{element.apellidos}} </span>
+                </span>
+
+                <span style="justify-content: center;">
+                  <button style="z-index: 0; padding-left: 30px; margin-right: 0; width: 80%; margin-top: 15px;" mat-flat-button (click)="registrarEntrada($event,element._id)" *ngIf="element.fechaVencimiento != 'deBaja' " class="registeButon">
+                    Registrar Entrada
+                  </button>
+                  <button style="z-index: 0; padding-left: 30px; margin-right: 0; width: 80%; margin-top: 15px;" mat-flat-button (click)="renovarMensualidad($event,element._id)" *ngIf="element.fechaVencimiento === 'deBaja' " class="renovarButon">
+                    Renovar Membresia
+                  </button>
+                </span>
+              </div>
+
+
+              <button style="z-index: 0; color: rgb(17, 37, 5); margin-top: 25px; margin-left: 20%;" mat-button (click)="editarCliente($event,element._id)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button style="z-index: 0; color: rgb(17, 37, 5);margin-top: 15px;" mat-button (click)="deleteCliente($event,element._id)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div></td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumnsSmall"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumnsSmall;"></tr>
+
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell back" colspan="2">Sin clientes disponiples</td>
+          </tr>
+        </table>
+      </div>  Row shown when there is no matching data. -->
+
+      <!--
+      <form [formGroup]="form" (ngSubmit)="ingresar()" style="display: block; justify-content: center; height: 100%; align-items: center; width: 100%; margin-top: 25px;">
+
+        <mat-form-field style="width: 100%;">
+          <mat-label>Número de Cuenta</mat-label>
+          <input type="text" matInput formControlName="ncuenta">
+        </mat-form-field>
+
+        <mat-form-field style="width: 100%;">
+          <mat-label>Contraseña</mat-label>
+          <input type="password" matInput formControlName="pass">
+        </mat-form-field>
+
+        <div style="margin-bottom: 15px; display: block; width: 100%;">
+          <div><mat-label>Genero</mat-label></div>
+          <div><mat-radio-group formControlName="gender">
+            <mat-radio-button color="primary" value="H">Hombre</mat-radio-button>
+            <mat-radio-button value="M">Mujer</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        </div>
+
+        <mat-form-field style="width: 100%;">
+          <mat-label>Nombre</mat-label>
+          <input type="text" matInput autocomplete="off" autofocus formControlName="nombre">
+        </mat-form-field>
+
+        <mat-form-field style="width: 100%;">
+          <mat-label>Apellidos</mat-label>
+          <input type="text" matInput autocomplete="off" formControlName="apellidos">
+        </mat-form-field>
+
+        <mat-form-field style="width: 100%;">
+          <mat-label>Número Telefónico</mat-label>
+          <input type="text" matInput autocomplete="off" formControlName="telefono">
+        </mat-form-field>
+
+        <mat-form-field style="width: 100%;">
+          <mat-label>Número de Emergencia</mat-label>
+          <input type="text" matInput autocomplete="off" formControlName="emergencia">
+        </mat-form-field>
+
+        <mat-form-field style="width: 100%;">
+          <mat-label>Fecha de Pago</mat-label>
+          <input matInput [matDatepicker]="picker1" formControlName="fechaPago">
+          <mat-hint>DD/MM/YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field style="width: 100%;">
+          <div *ngIf="form.get('mensualidad')?.value !== 'Convenio'">
+            <mat-label>Tipo de mensualidad</mat-label>
+            <mat-select formControlName="mensualidad" name="mensualidad">
+              <mat-option *ngFor="let m of tipos" [value]="m">{{m}}</mat-option>
+            </mat-select>
+          </div>
+          <div *ngIf="form.get('mensualidad')?.value === 'Convenio'" style="display: flex; align-items: center;">
+            <div style="margin-right: auto;">
+              <mat-label>Precio del convenio</mat-label>
+              <input matInput formControlName="Precio" type="number" name="Precio">
+            </div>
+            <div>
+              <button matTooltip="Cancelar nuevo" mat-icon-button (click)="cancelarConvenio()" style="margin-top: 0px;">
+                <mat-icon>clear</mat-icon>
+              </button>
+            </div>
+          </div>
+        </mat-form-field>
+
+      </form> -->
+    </div>
+
+  </div>
+
+  <!--<div style="width: 100%; justify-content: left">
+    <button type="submit" (click)="submitForm()" style="margin-left: 20%;" mat-flat-button color="primary" [disabled]="form.invalid" class="ancho boton">Aceptar</button>
+  </div>-->
+
+</div>

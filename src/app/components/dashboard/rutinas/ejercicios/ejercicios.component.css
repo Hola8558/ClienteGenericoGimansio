@@ -1,0 +1,463 @@
+mat-grid-tile {
+  border-radius: 10px; /* Ajusta según sea necesario */
+  overflow: hidden; /* Para que el contenido no se salga del panel */
+}
+
+.example-card {
+  max-width: 400px;
+  margin-bottom: 8px;
+}
+
+.buttonSliderForward{
+  height: 100px;
+  width: 40px;
+  position: absolute;
+  z-index: 1000;
+  margin-top: 50px;
+  margin-left: 20px;
+  background-color: rgba(177, 177, 177, 0.438);
+  backdrop-filter: blur(2px);
+  border-radius: 6px;
+}
+
+.buttonSliderForward:hover{
+  animation: buttonSliderForwardAnim 0.2s forwards;
+}
+.buttonSliderForward:not(:hover){
+  animation: buttonSliderForwardReverse 0.2s forwards;
+}
+.buttonSliderBack:hover{
+  animation: buttonSliderBackAnim 0.2s forwards;
+}
+.buttonSliderBack:not(:hover){
+  animation: buttonSliderBackReverse 0.2s forwards;
+}
+
+.buttonSliderBack{
+  height: 100px;
+  width: 40px;
+  position: absolute;
+  z-index: 1000;
+  top: 50px;
+  right: 20px;
+  background-color: rgba(177, 177, 177, 0.438);
+  backdrop-filter: blur(2px);
+  border-radius: 6px;
+}
+
+/*Animaciones buttonSlider*/
+
+@keyframes buttonSliderForwardAnim {
+  from{
+    height: 100px;
+    width: 40px;
+    position: absolute;
+    z-index: 1000;
+    margin-top: 50px;
+    margin-left: 20px;
+    background-color: rgba(177, 177, 177, 0.438);
+    backdrop-filter: blur(2px);
+    border-radius: 6px;
+  }
+  to {
+    background-color: rgba(223, 221, 221, 0.5);
+    color: #ffffff;
+    border: none;
+  }
+}
+
+@keyframes buttonSliderForwardReverse {
+  from{
+    background-color: rgba(223, 221, 221, 0.5);
+    color: #ffffff;
+    border: none;
+  }
+  to {
+    height: 100px;
+    width: 40px;
+    position: absolute;
+    z-index: 1000;
+    margin-top: 50px;
+    margin-left: 20px;
+    background-color: rgba(177, 177, 177, 0.438);
+    backdrop-filter: blur(2px);
+    border-radius: 6px;
+  }
+}
+
+@keyframes buttonSliderBackAnim {
+  from{
+    height: 100px;
+    width: 40px;
+    position: absolute;
+    z-index: 1000;
+    top: 50px;
+    right: 20px;
+    background-color: rgba(177, 177, 177, 0.438);
+    backdrop-filter: blur(2px);
+    border-radius: 6px;
+  }
+  to {
+    background-color: rgba(223, 221, 221, 0.5);
+    color: #ffffff;
+    border: none;
+  }
+}
+
+@keyframes buttonSliderBackReverse {
+  from{
+    background-color: rgba(223, 221, 221, 0.5);
+    color: #ffffff;
+    border: none;
+  }
+  to {
+    height: 100px;
+    width: 40px;
+    position: absolute;
+    z-index: 1000;
+    top: 50px;
+    right: 20px;
+    background-color: rgba(177, 177, 177, 0.438);
+    backdrop-filter: blur(2px);
+    border-radius: 6px;
+  }
+}
+
+/* Animación para desplazarse a la izquierda */
+@keyframes slide-in-left {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Animación para desplazarse a la derecha */
+@keyframes slide-in-right {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Aplica las clases de animación a las tarjetas individuales */
+.slide-in-left {
+  animation: slide-in-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+.slide-in-right {
+  animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+
+/* mat-card */
+
+.mat-card {
+  position: relative; /* Hacemos que el elemento padre sea relativo para posicionar los pseudo-elementos */
+  overflow: hidden;
+  background-color: #ffffff; /* Fondo blanco */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  border-radius: 10px; /* Bordes redondeados, ajusta según sea necesario */
+  padding: 16px; /* Espaciado interno, ajusta según sea necesario */
+  transition: box-shadow 0.3s ease; /* Transición suave para la sombra */
+
+  /* Estilo adicional para el encabezado de la tarjeta */
+  .mat-card-header {
+    background-color: #f0f0f0; /* Fondo del encabezado */
+    border-bottom: 1px solid #e0e0e0; /* Línea divisoria en el encabezado */
+    padding: 8px; /* Espaciado interno en el encabezado */
+  }
+
+  /* Estilo adicional para el contenido de la tarjeta */
+  .mat-card-content {
+    padding: 8px; /* Espaciado interno en el contenido */
+  }
+
+  /* Estilo adicional para el pie de la tarjeta */
+  .mat-card-actions {
+    padding: 8px; /* Espaciado interno en el pie */
+    border-top: 1px solid #e0e0e0; /* Línea divisoria en el pie */
+  }
+
+  /* Pseudo-clase para resaltar la tarjeta en el enfoque o al pasar el ratón */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px; /* Grosor de la línea */
+    border-radius: 10px;
+    background-color: #2ca803b2; /* Color de la línea */
+    transform-origin: top left;
+    transform: scaleX(0); /* Inicialmente la línea no es visible */
+    transition: transform 0.3s ease;
+  }
+
+  /* Pseudo-elemento para la línea derecha */
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 4px; /* Grosor de la línea */
+    height: 100%;
+    background-color: #2ca803b2; /* Color de la línea */
+    transform-origin: top right;
+    transform: scaleY(0); /* Inicialmente la línea no es visible */
+    transition: transform 0.3s ease;
+  }
+
+  /* Pseudo-clase para resaltar la tarjeta en el enfoque o al pasar el ratón */
+  &:hover,
+  &:focus {
+    box-shadow: 0 4px 8px rgba(44, 167, 3, 0.267); /* Sombra más pronunciada */
+
+    /* Activamos la visibilidad de las líneas al pasar el ratón */
+    &::before,
+    &::after {
+      transform: scaleX(1); /* Mostramos la línea superior */
+      transform: scaleY(1); /* Mostramos la línea derecha */
+    }
+  }
+}
+
+.real-mat-card{
+  background-color: #ffffff; /* Fondo blanco */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4); /* Sombra suave */
+  border-radius: 8px; /* Bordes redondeados, ajusta según sea necesario */
+  padding: 16px; /* Espaciado interno, ajusta según sea necesario */
+  z-index: 1000;
+
+  .real-mat-card-header {
+    width: 100%;
+    display: flex;
+    background-color: #f0f0f01f; /* Fondo del encabezado */
+    border-bottom: 1px solid #e0e0e0; /* Línea divisoria en el encabezado */
+    border-radius: 10px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px; /* Espaciado interno en el encabezado */
+  }
+
+  /* Estilo adicional para el contenido de la tarjeta */
+  .real-mat-card-content {
+    padding: 8px; /* Espaciado interno en el contenido */
+  }
+}
+
+.shape-to-options{
+  width: 50px;
+  height: 170px;
+  margin-top: 15px;
+  border-radius: 0 15px 15px 0;
+  background-color: #bee7b3b9; /* Cambia el color según tus necesidades */
+  backdrop-filter: blur(20px);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  animation: card-edit-ejercicio 0.5s ease;
+}
+
+.shape-to-options button {
+  margin: 5px; /* Agrega margen entre los botones si lo deseas */
+}
+
+section {
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+}
+
+.shape-to-options:not(:hover) {
+  animation: card-edit-ejercicio-reverse 0.5s ease;
+}
+.shape-to-options:hover {
+  animation: card-ejercicio-hover 0.5s forwards; /* "forwards" para mantener el estado final de la animación */
+}
+
+@keyframes card-edit-ejercicio {
+  from {
+    transform: translateX(-80px);
+  }
+  to {
+    transform: translateX(0px);
+  }
+}
+
+@keyframes card-edit-ejercicio-reverse {
+  from {
+    transform: translateX(-4px);
+  }
+  to {
+    transform: translateX(0px);
+  }
+}
+
+@keyframes card-ejercicio-hover {
+  from {
+    transform: translateX(0px);
+  }
+  to {
+    transform: translateX(-4px);
+  }
+}
+
+.slit-in-vertical {
+	-webkit-animation: slit-in-vertical 0.35s ease-out both;
+	        animation: slit-in-vertical 0.35s ease-out both;
+}
+
+@-webkit-keyframes slit-in-vertical {
+  0% {
+    -webkit-transform: translateZ(-800px) rotateY(90deg);
+            transform: translateZ(-800px) rotateY(90deg);
+    opacity: 0;
+  }
+  54% {
+    -webkit-transform: translateZ(-160px) rotateY(87deg);
+            transform: translateZ(-160px) rotateY(87deg);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translateZ(0) rotateY(0);
+            transform: translateZ(0) rotateY(0);
+  }
+}
+@keyframes slit-in-vertical {
+  0% {
+    -webkit-transform: translateZ(-800px) rotateY(90deg);
+            transform: translateZ(-800px) rotateY(90deg);
+    opacity: 0;
+  }
+  54% {
+    -webkit-transform: translateZ(-160px) rotateY(87deg);
+            transform: translateZ(-160px) rotateY(87deg);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translateZ(0) rotateY(0);
+            transform: translateZ(0) rotateY(0);
+  }
+}
+
+
+/* SALIDA */
+
+.slit-out-vertical {
+	-webkit-animation: slit-out-vertical 0.4s ease-in both;
+	        animation: slit-out-vertical 0.4s ease-in both;
+}
+
+@-webkit-keyframes slit-out-vertical {
+  0% {
+    -webkit-transform: translateZ(0) rotateY(0);
+            transform: translateZ(0) rotateY(0);
+    opacity: 1;
+  }
+  54% {
+    -webkit-transform: translateZ(-160px) rotateY(87deg);
+            transform: translateZ(-160px) rotateY(87deg);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translateZ(-800px) rotateY(90deg);
+            transform: translateZ(-800px) rotateY(90deg);
+    opacity: 0;
+  }
+}
+@keyframes slit-out-vertical {
+  0% {
+    -webkit-transform: translateZ(0) rotateY(0);
+            transform: translateZ(0) rotateY(0);
+    opacity: 1;
+  }
+  54% {
+    -webkit-transform: translateZ(-160px) rotateY(87deg);
+            transform: translateZ(-160px) rotateY(87deg);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translateZ(-800px) rotateY(90deg);
+            transform: translateZ(-800px) rotateY(90deg);
+    opacity: 0;
+  }
+}
+
+/* add Buton */
+
+.addbutton:hover{
+  animation: addButton 0.3s forwards;
+}
+
+.addbutton:not(:hover) {
+  animation: addButtonReverse 0.3s forwards;
+}
+
+.addbutton{
+  background: #16ad43;
+  color: #d4d4d4;
+  height: 50px;
+  width: 50px;
+  font-size: x-large;
+  border: none;
+  border-radius: 100px;
+}
+
+@keyframes addButton {
+  from{
+    background: #16ad43;
+    height: 50px;
+    width: 50px;
+    font-size: x-large;
+    border: none;
+    border-radius: 100px;
+  }
+  to {
+    background: #0de24d;
+    color: #ffffff;
+    box-shadow: 0 0 50px 5px #0cf050;
+  }
+}
+
+@keyframes addButtonReverse {
+  from{
+    background: #0de24d;
+    color: #ffffff;
+    box-shadow: 0 0 50px 5px #0cf050;
+  }
+  to {
+    background: #16ad43;
+    height: 50px;
+    width: 50px;
+    font-size: x-large;
+    border: none;
+    border-radius: 100px;
+  }
+}
+
+/* CAROUSEL */
+/* CAROUSEL */
+
+.carousel {
+  height: 165px;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  overflow-x: auto;
+}
+
+.carousel::-webkit-scrollbar{
+  width: 0;
+}
+
+.carousel .item {
+  width: 150px;
+  height: 110px;
+  line-height: 110px;
+  text-align: center;
+  margin-right: 5px;
+}

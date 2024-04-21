@@ -1,0 +1,226 @@
+
+<div *ngIf="!spinnerUpload">
+  <h1 mat-dialog-title>Actualizar Cliente</h1>
+<div mat-dialog-content>
+
+<!--  PANTALLA GRANDE   -->
+  <div *ngIf="!isSmallScreen">
+    <div style="position: absolute; top: 25px; right: 25px;">
+      <!--<button mat-button class="hksdfa">Presione para cambiar</button>-->
+      <label for="fileInput" class="hksdfa">
+        Cambiar imagen
+      </label>
+      <input id="fileInput" type="file" accept=".jpg, .jpeg, .png, .gif" class="custom-file-input" (change)="onImgSelected($event)" />
+
+      <img
+        style="height: 115px; width: 95px; border-radius: 10px;"
+        [src]="base64Image ? base64Image : '/assets/img/placeHolder_profile.png'"
+        alt="Perfil image"
+      />
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="actualizar()" style="display: block; justify-content: center; height: 100%; align-items: center;">
+
+      <div style="display: flex;">
+        <mat-form-field>
+          <mat-label>Número de Cuenta</mat-label>
+          <input type="text" readonly [attr.readonly]="true" matInput formControlName="ncuenta">
+        </mat-form-field>
+
+        <div *ngIf="!changePass" style="margin-left: 20px;">
+          <button mat-button (click)="changePass = true">Cambiar contraseña</button>
+        </div>
+
+        <div *ngIf="changePass" style="margin-left: 20px;">
+          <div style="display: inline-flex; width: 100%;">
+            <mat-form-field style="width: 50%;margin-right: 3px;">
+              <mat-label>Contraseña</mat-label>
+              <input type="password" matInput autocomplete="off" formControlName="pass">
+            </mat-form-field>
+
+            <mat-form-field style="width: 50%;">
+              <mat-label>Confirmar contraseña</mat-label>
+              <input type="password" matInput autocomplete="off" formControlName="passConfirmed">
+            </mat-form-field>
+          </div>
+
+          <button mat-button (click)="cancelarNewPass()">Cancelar</button>
+
+        </div>
+
+        <!-- Género -->
+        <div style="margin-bottom: 15px; margin-left: 5%; display: block;">
+          <div><mat-label>Genero</mat-label></div>
+          <div><mat-radio-group formControlName="gender">
+            <mat-radio-button color="primary" value="H">Hombre</mat-radio-button>
+            <mat-radio-button value="M">Mujer</mat-radio-button>
+          </mat-radio-group></div>
+        </div>
+      </div>
+
+      <div class="div" style="display: inline-flex; width: 100%;">
+        <mat-form-field style="width: 40%; margin-right: 3px;">
+          <mat-label>Nombre</mat-label>
+          <input type="text" matInput autocomplete="off" autofocus formControlName="nombre">
+        </mat-form-field>
+
+        <mat-form-field style="width: 60%;">
+          <mat-label>Apellidos</mat-label>
+          <input type="text" matInput autocomplete="off" formControlName="apellidos">
+        </mat-form-field>
+      </div>
+
+      <div class="div" style="display: inline-flex; width: 100%;">
+        <mat-form-field style="width: 50%; margin-right: 3px;">
+          <mat-label>Número Telefónico</mat-label>
+          <input type="text" matInput autocomplete="off" formControlName="telefono">
+        </mat-form-field>
+        <mat-form-field style="width: 50%;">
+          <mat-label>Número de Emergencia</mat-label>
+          <input type="text" matInput autocomplete="off" formControlName="emergencia">
+        </mat-form-field>
+      </div>
+
+
+      <div class="div" style="display: inline-flex; width: 100%;">
+        <mat-form-field style="width: 50%; margin-right: 3px;">
+          <mat-label>Fecha de Pago</mat-label>
+          <input matInput [matDatepicker]="picker1" readonly [attr.readonly]="true" formControlName="fechaPago">
+          <mat-hint>DD/MM/YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="picker1" [disabled]="true"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field style="width: 50%;">
+          <mat-label>Tipo de mensualidad</mat-label>
+           <mat-select formControlName="mensualidad" name="mensualidad">
+
+            <mat-option *ngFor="let m of tipos" [value]="m">{{m}}</mat-option>
+
+           </mat-select>
+         </mat-form-field>
+      </div>
+    </form>
+  </div>
+
+
+<!--  PANTALLA PEQUEÑA  [(ngModel)]="ncuenta"  -->
+    <div *ngIf="isSmallScreen">
+
+      <form [formGroup]="form" (ngSubmit)="actualizar()" style="display: block; justify-content: center; height: 100%; align-items: center;">
+
+        <div style="justify-content: center; margin-left: 30%; margin-bottom: 15px; position: relative;">
+          <label for="fileInput" class="hksdfa" style="height: 135px; width: 85px; border-radius: 10px; z-index: 2;">
+            Cambiar imagen
+          </label>
+          <input id="fileInput" type="file" accept=".jpg, .jpeg, .png, .gif" class="custom-file-input" (change)="onImgSelected($event)" style="z-index: 1; position: relative;" />
+
+          <img
+            style="height: 135px; width: 110px; border-radius: 10px; position: relative; z-index: 1;"
+            [src]="base64Image ? base64Image : '/assets/img/placeHolder_profile.png'"
+            alt="Perfil image"
+          />
+        </div>
+
+        <!-- Género -->
+        <div style="margin-bottom: 15px;display: block;">
+          <div><mat-label>Genero</mat-label></div>
+          <div><mat-radio-group formControlName="gender">
+            <mat-radio-button color="primary" value="H">Hombre</mat-radio-button>
+            <mat-radio-button value="M">Mujer</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        </div>
+
+        <mat-form-field>
+          <mat-label>Número de Cuenta</mat-label>
+          <input type="text" matInput formControlName="ncuenta">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Nombre</mat-label>
+          <input type="text" matInput autocomplete="off" autofocus formControlName="nombre">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Apellidos</mat-label>
+          <input type="text" matInput autocomplete="off" formControlName="apellidos">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Número Telefónico</mat-label>
+          <input type="text" matInput autocomplete="off" formControlName="telefono">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Número de Emergencia</mat-label>
+          <input type="text" matInput autocomplete="off" formControlName="emergencia">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Fecha de Pago</mat-label>
+          <input matInput [matDatepicker]="picker1" readonly [attr.readonly]="true" formControlName="fechaPago">
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="picker1" [disabled]="true"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Tipo de mensualidad</mat-label>
+           <mat-select formControlName="mensualidad" name="mensualidad">
+            <mat-option *ngFor="let m of tipos" [value]="m">{{m}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <div *ngIf="changePass" >
+          <div style="display: block; width: 100%;">
+            <mat-form-field style="width: 100%;margin-right: 3px;">
+              <mat-label>Contraseña</mat-label>
+              <input type="password" matInput autocomplete="off" formControlName="pass">
+            </mat-form-field>
+
+            <mat-form-field style="width: 100%;">
+              <mat-label>Confirmar contraseña</mat-label>
+              <input type="password" matInput autocomplete="off" formControlName="passConfirmed">
+            </mat-form-field>
+          </div>
+
+          <button mat-button (click)="cancelarNewPass()">Cancelar</button>
+
+        </div>
+
+        <div *ngIf="!changePass" style="margin-left: 20px;">
+          <button mat-button (click)="changePass = true">Cambiar contraseña</button>
+        </div>
+
+      </form>
+    </div>
+
+</div>
+<div mat-dialog-actions style="padding-left: 2rem;">
+  <button mat-button (click)="onNoClick(false)">Cancelar</button>
+  <button type="submit" (click)="submitForm()" mat-flat-button color="primary" [disabled]="form.invalid" class="ancho boton">Aceptar</button>
+  <mat-error *ngIf="errorNoMatchPass" style="margin-left: 3px; margin-top: 3px;">
+    Las contraseñas no coinciden.
+  </mat-error>
+</div>
+</div>
+
+
+
+<!--PANTALLA NO GRANDE-->
+<div *ngIf="spinnerUpload && isSmallScreen" style="width: 250px; height: 300px; display: flex; align-items: center; justify-content: center;">
+  <mat-spinner diameter="50"></mat-spinner>
+</div>
+<div *ngIf="messageError != '' && isSmallScreen" style="width: 250px; height: 300px; display: flex; align-items: center; justify-content: center;">
+  <h3>{{messageError}}</h3>
+</div>
+<!--PANTALLA GRANDE-->
+<div *ngIf="spinnerUpload && !isSmallScreen" style="width: 400px; height: 300px; display: flex; align-items: center; justify-content: center;">
+  <mat-spinner diameter="50"></mat-spinner>
+</div>
+<div *ngIf="messageError != '' && !isSmallScreen" style="width: 400px; height: 300px; display: flex; align-items: center; justify-content: center;">
+  <h3>{{messageError}}</h3>
+</div>
+
+

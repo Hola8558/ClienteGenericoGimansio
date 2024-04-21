@@ -1,0 +1,134 @@
+<h1 mat-dialog-title *ngIf="error === '' " style="background: rgba(21, 139, 21, 0.616);color: #fff;">Selecciona una rutina</h1>
+<h1 mat-dialog-title *ngIf="error != '' " style="background: #cd9797;">Error</h1>
+
+<div mat-dialog-content>
+
+  <div *ngIf="error != ''" [class]="error != '' ? 'errorMsg' : 'errorMsgClose' " style="z-index: 1000; background-color: #fc3737ad; width: 90%; min-height: 35px; padding-bottom: 10px; height: fit-content; border-radius: 10px ; position: fixed; top: 10px; left: 5px; justify-content: start; align-items: center; padding-left: 15px; padding-top: 10px;">
+    <span style="color: #f7f7f7; font-weight: 500; font-size: large;">{{error}}</span>
+  </div>
+
+  <form [formGroup]="form" style="display: block; justify-content: start; height: 100%; align-items: center; width: 95%;">
+    <mat-form-field style="width: 100%;">
+      <mat-label>Seleccione día de la semana</mat-label>
+      <mat-select formControlName="diaSelect" name="diaSelect">
+        <mat-option *ngFor="let d of diasSemana" [value]="d">{{d}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+
+   <!--      LISTA FAVORITOS         -->
+
+   <div *ngIf="listStarred.length > 0"
+    style="display: block; justify-content: center; align-items: center; margin-bottom: 40px; margin-top: 20px;
+    width: 100%;">
+
+    <span style="justify-content: center; align-items: center; display: flex; padding: 8px; border-radius: 8px; background-color: #ffff004b;"><mat-icon style="margin-right: 15px;">star</mat-icon>  Favoritos</span>
+
+    <div class="starredList">
+
+      <mat-accordion style="width: 95%;">
+        <mat-expansion-panel hideToggle *ngFor="let rutina of listStarred" style="width: 100%; "  (opened)="panelOpenState = true"  [class]="rutinaSelect === rutina._id ? 'selectRutina': ''"
+                             (closed)="panelOpenState = false" (click)=" rutinaSelect = rutina._id!"  >
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{rutina.name}}
+            </mat-panel-title>
+            <mat-panel-description>
+              {{panelOpenState ? '' : getResumeExcecise(rutina.ejercicios) }}
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+
+          <span style="margin: 10px; font-weight: 700; color: rgb(16, 59, 16);">Resumen de la rutina...</span>
+          <div *ngFor="let item of rutina.ejercicios; let index = index; let odd = odd"  [style.background-color]="item.color? item.color : ''" style="margin-bottom: 15px; display: flex; border-radius: 8px; padding: 2px;">
+            <div *ngIf="(getExcercise(item) && getExcercise(item).nombre != 'c1ecu1t029092005') " style="width: 100%; display: flex; align-items: center; justify-content: space-between;">
+              <span style="width: 100%; font-size: small;word-wrap: break-word; line-height: 1.5rem; display: flex;">
+                <strong>
+                  {{ getExcercise(item).nombre || '' }}
+                </strong>
+              </span>
+              <div style="display: block; min-width: 15%; width: fit-content; left: 100%; height: 40px; margin-top: 10px; padding: 0; justify-content: center; align-items: center; z-index: 1;">
+                <div style="padding: 2px; margin-bottom: 15px; display: flex; justify-content: center; background-color: rgba(255, 242, 123, 0.733); border-radius: 8px;"><span class="form__label"><strong>{{item.series}}  x  {{item.reps}}</strong></span></div>
+              </div>
+            </div>
+
+            <div *ngIf="!(getExcercise(item) && getExcercise(item).nombre != 'c1ecu1t029092005') ">
+              <span style="width: 100%; font-size: small;word-wrap: break-word; line-height: 1.5rem; display: flex;">
+                <strong>
+                  Circuito
+                </strong>
+              </span>
+            </div>
+          </div>
+
+        </mat-expansion-panel>
+      </mat-accordion>
+
+    </div>
+
+  </div>
+
+  <!--   LISTA CONVENCIONAL   -->
+
+  <div style="width: 100%; display: block; justify-content: space-between; align-items: center;">
+    <span style="margin: 2%; margin-top: 15px;" class="title" >
+      Personalizadas
+    </span>
+    <div *ngIf="!rutinasDescargadas" style="display: flex; align-items: center; justify-content: space-between;">
+      <span style="color: #333333; font-weight: 500;">Ver:</span>
+      <button (click)="downloadAllRutinas()" style="margin-left: 15px;" mat-button class="title butonTitle"><mat-icon style="margin-top: 1px; margin-left: 6px;">visibility</mat-icon></button>
+    </div>
+  </div>
+
+  <div *ngFor="let gm of listaRutinas ">
+     <mat-accordion style="width: 95%;">
+        <mat-expansion-panel hideToggle   (opened)="panelOpenState = true;" (click)=" rutinaSelect = rutina._id!"
+        *ngFor="let rutina of gm.rutinas" style="width: 100%; margin-bottom: 10px;"
+        [class]="rutinaSelect === rutina._id ? 'selectRutina': ''"
+        (closed)="panelOpenState = false">
+          <mat-expansion-panel-header (click)=" rutinaSelect = rutina._id!">
+            <mat-panel-title (click)=" rutinaSelect = rutina._id!">
+              {{rutina.name}}
+            </mat-panel-title>
+            <mat-panel-description (click)=" rutinaSelect = rutina._id!">
+              {{panelOpenState ? '' : getResumeExcecise(rutina.ejercicios) }}
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <span style="margin: 10px; font-weight: 700; color: rgb(16, 59, 16);">Resumen de la rutina...</span>
+          <div *ngFor="let item of rutina.ejercicios; let index = index; let odd = odd"  [style.background-color]="item.color? item.color : ''" style="margin-bottom: 15px; display: flex; border-radius: 8px; padding: 2px;">
+            <div *ngIf="(getExcercise(item) && getExcercise(item).nombre != 'c1ecu1t029092005') " style="width: 100%; display: flex; align-items: center; justify-content: space-between;">
+              <span style="width: 100%; font-size: small;word-wrap: break-word; line-height: 1.5rem; display: flex;">
+                <strong>
+                  {{ getExcercise(item).nombre || '' }}
+                </strong>
+              </span>
+              <div style="display: block; min-width: 15%; width: fit-content; left: 100%; height: 40px; margin-top: 10px; padding: 0; justify-content: center; align-items: center; z-index: 1;">
+                <div style="padding: 2px; margin-bottom: 15px; display: flex; justify-content: center; background-color: rgba(255, 242, 123, 0.733); border-radius: 8px;"><span class="form__label"><strong>{{item.series}}  x  {{item.reps}}</strong></span></div>
+              </div>
+            </div>
+
+            <div *ngIf="!(getExcercise(item) && getExcercise(item).nombre != 'c1ecu1t029092005') ">
+              <span style="width: 100%; font-size: small;word-wrap: break-word; line-height: 1.5rem; display: flex;">
+                <strong>
+                  Circuito
+                </strong>
+              </span>
+            </div>
+          </div>
+      </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+
+    <!--      SIN RUTINAS        -->
+
+  <div *ngIf="listaRutinas.length === 0 && listStarred.length === 0" class="alert-warning" style="width: 90%; padding: 20px; border: 10px;">
+    Parece que no hay rutinas aún
+  </div>
+
+  <span style="position: static; z-index: 1000;">O crea una nueva rutina personalizada</span>
+
+</div>
+<div mat-dialog-actions style="display: flex; justify-content: space-between;">
+  <button mat-button (click)="onNoClick()" style="background: #e18d96; color: #fff;">Cancelar</button>
+  <button mat-button (click)="onNoClick(1)" style="background: #ace18d; color: #fff;" cdkFocusInitial>Crear Personalizada</button>
+  <button mat-button *ngIf="rutinaSelect != ''" (click)="onNoClick(2)" style="background: #8de1be; color: #fff;" cdkFocusInitial>Aceptar</button>
+</div>

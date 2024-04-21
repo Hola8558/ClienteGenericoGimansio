@@ -1,0 +1,194 @@
+<div *ngIf="!isSmallScreen" style="margin: 2%; display: flex; align-items: center; justify-content: center;">
+
+  <div style="display: block; width: 100%;">
+    <div style="width: 100%; display: flex; align-items: center; justify-content: center;">
+      <div style="display: block; width: 110px; align-items: center; justify-content: center;">
+        <label style="font-size: small; color: rgb(172, 172, 172);">Agregar ejercicio</label>
+        <button class="addbutton" matTooltip="Agregar ejercicio" (click)="addNewExcercise()" color="secondary" style="margin-left: 20px; margin-top: 10px;">+</button>
+      </div>
+    </div>
+
+    <section *ngIf="tarjeta_ejercicio && !errorTarjetaExc.e" style="display: flex; justify-content: center;" [class.slit-out-vertical]="showExercise.s === false" [class.slit-in-vertical]="showExercise.s">
+
+        <div class="real-mat-card" style="max-width: 70%; margin-top: 15px;">
+          <div class="real-mat-card-header">
+            <span>{{showExercise.title}}</span>
+            <button mat-icon-button matTooltip="Cerrar" (click)="closeTarjetaE()"><mat-icon>close</mat-icon></button>
+          </div>
+          <div class="real-mat-card-content" style="display: flex; z-index: 1000;">
+            <!-- style="height: 60px; width: 60px; border-radius: 10px; margin: 5px; position: absolute; top: 0; right: 0;" -->
+            <span style="width: 80%;">{{showExercise.desc}}</span>
+            <img [src]="showExercise.url ? showExercise.url : '/assets/img/no_photo.jpg'" alt="Imagen del ejercicio" style="width: 20%">
+          </div>
+        </div>
+
+        <div class="shape-to-options" style="display: flex; align-items: center; ">
+          <button mat-icon-button class="reactButton" (click)="editarEjercicio(showExercise._id)" matTooltip="Editar"><mat-icon>edit</mat-icon></button>
+          <button mat-icon-button class="reactButton" (click)="eliminarEjercicio(showExercise._id)" matTooltip="Eliminar"><mat-icon>delete</mat-icon></button>
+        </div>
+
+    </section>
+
+    <div *ngIf="errorTarjetaExc.e" class="alert-danger" style="margin-left: 10%; margin-right: 10%; border-radius: 10px; padding: 8px;">
+      <strong>Error al mostrar ejercicio:</strong>
+      <p>{{errorTarjetaExc.m}}</p>
+    </div>
+
+    <div *ngIf="gruposMusculares.length != 0 && !errorMsg.e">
+      <div style="display: flex; gap: 7px; padding: 15px;">
+        <div *ngFor="let tile of tiles" style="flex: 1; padding: 15px; border-radius: 10px;">
+          <ng-container *ngIf="tile.text === 'One'" style="height: 40px;">
+            <mat-card class="example-card" *ngFor="let grupoMusc of gruposMusculares; let i = index" [style.margin-top.px]="i === 0 ? 65 : 155" style="min-width: 250px"> <!-- [style.margin-bottom.px]="i === gruposMusculares.length - 1 ? 100 : 100" -->
+              <mat-card-header>
+                <mat-card-title-group>
+                  <mat-card-title>{{grupoMusc.name}}</mat-card-title>
+                </mat-card-title-group>
+              </mat-card-header>
+              <mat-card-content>
+                <!-- Contenido dinámico -->
+              </mat-card-content>
+            </mat-card>
+          </ng-container>
+
+          <ng-container *ngIf="tile.text !== 'One'">
+            <div *ngFor="let grupoMusc of gruposMusculares; let i = index">
+
+                <div style="display: flex;position: relative; width: 100%; overflow-x: auto;"
+                  [style.margin-top.px]=" i === 0 ? 0:10" [style.margin-bottom.px]="i === gruposMusculares.length-1 ? 0 : 10 ">
+
+                  <span (click)="sliceButton(1, i)" *ngIf="grupoMusc.ejercicios.length > 4" class="buttonSliderForward"><mat-icon style="position: relative; margin-top: 35px; margin-left: 12px;">arrow_back_ios</mat-icon></span>
+
+                  <div *ngFor="let ejercicio of grupoMusc.ejercicios; let o = index">
+                    <mat-card *ngIf="o <= 3" [ngClass]="{'slide-in-left': o % 2 === 0, 'slide-in-right': o % 2 !== 0}" class="example-card mat-card" style="height: 200px; width: 250px;"
+                    [style.margin-right.px]=" o === grupoMusc.ejercicios.length - 1 ? 0:10" (click)="viewEjercicio(i, o)">
+                      <mat-card-header>
+                        <mat-card-title-group>
+                          <mat-card-title>{{ejercicio.nombre}}</mat-card-title>
+                        </mat-card-title-group>
+                      </mat-card-header>
+                      <mat-card-content>
+                        <div style="display: flex; flex-direction: column;height: 130px; position: relative; overflow: hidden; border: 1px solid #cccccc1f; border-radius: 10px;">
+                          <span style="flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 5px;">{{ejercicio.description}}</span>
+                          <img [src]="ejercicio.url ? ejercicio.url : '/assets/img/no_photo.jpg'" alt="Imagen del ejercicio" style="height: 60px; width: 60px; border-radius: 10px; margin: 5px; position: absolute; top: 0; right: 0;">
+                        </div>
+
+                      </mat-card-content>
+                    </mat-card>
+                  </div>
+
+                  <span (click)="sliceButton(-1, i)" *ngIf="grupoMusc.ejercicios.length > 4" class="buttonSliderBack"><mat-icon style="position: relative; margin-top: 35px; margin-left: 7px;">arrow_forward_ios</mat-icon></span>
+
+                </div>
+
+            </div>
+          </ng-container>
+        </div>
+      </div>
+
+    </div>
+
+    <div *ngIf="gruposMusculares.length === 0 && !errorMsg.e" class="alert-warning" style="height: 60px; width: 100%; align-items: center; padding-top: 30px; padding-left: 20px; border-radius: 10px;">
+      Parece que no hay ejercicios
+    </div>
+
+    <div *ngIf="errorMsg.e" class="alert-danger" style="height: 60px; width: 100%; align-items: center; padding-top: 30px; padding-left: 20px; border-radius: 10px;">
+      Error al cargar los ejercicios :
+      {{errorMsg.m}}
+    </div>
+
+  </div>
+
+
+</div>
+
+<div *ngIf="isSmallScreen" style="margin: 2%; display: flex; align-items: center; justify-content: center;">
+
+  <div style="display: block; width: 100%;">
+    <div style="width: 100%; display: flex; align-items: center; justify-content: center;">
+      <div style="display: block; width: 110px; align-items: center; justify-content: center;">
+        <label style="font-size: small; color: rgb(172, 172, 172);">Agregar ejercicio</label>
+        <button class="addbutton" matTooltip="Agregar ejercicio" (click)="addNewExcercise()" color="secondary" style="margin-left: 20px; margin-top: 10px;">+</button>
+      </div>
+    </div>
+
+    <section *ngIf="tarjeta_ejercicio && !errorTarjetaExc.e" style="margin-top: 15px; display: flex; justify-content: center;" [class.slit-out-vertical]="showExercise.s === false" [class.slit-in-vertical]="showExercise.s">
+
+        <div class="real-mat-card" style="max-width: 70%;">
+          <div class="real-mat-card-header">
+            <span>{{showExercise.title}}</span>
+            <button mat-icon-button matTooltip="Cerrar" (click)="closeTarjetaE()"><mat-icon>close</mat-icon></button>
+          </div>
+          <div class="real-mat-card-content" style="display: flex; z-index: 1000;">
+            <!-- style="height: 60px; width: 60px; border-radius: 10px; margin: 5px; position: absolute; top: 0; right: 0;" -->
+            <span style="width: 80%;">{{showExercise.desc}}</span>
+            <img [src]="showExercise.url ? showExercise.url : '/assets/img/no_photo.jpg'" alt="Imagen del ejercicio" style="width: 20%">
+          </div>
+        </div>
+
+        <div class="shape-to-options" style="display: flex; align-items: center; ">
+          <button mat-icon-button class="reactButton" (click)="editarEjercicio(showExercise._id)" matTooltip="Editar"><mat-icon>edit</mat-icon></button>
+          <button mat-icon-button class="reactButton" (click)="eliminarEjercicio(showExercise._id)" matTooltip="Eliminar"><mat-icon>delete</mat-icon></button>
+        </div>
+
+    </section>
+
+    <div *ngIf="errorTarjetaExc.e" class="alert-danger" style="margin-left: 10%; margin-right: 10%; border-radius: 10px; padding: 8px;">
+      <strong>Error al mostrar ejercicio:</strong>
+      <p>{{errorTarjetaExc.m}}</p>
+    </div>
+
+    <div *ngIf="gruposMusculares.length != 0 && !errorMsg.e" style="width: 95%;">
+      <div style="display: block; padding: 10px; width: 100%;">
+
+          <!-- style="flex: 1; padding: 15px; border-radius: 10px;" -->
+
+          <ng-container style="height: 40px; width: 100%;">
+            <mat-card class="example-card" *ngFor="let grupoMusc of gruposMusculares; let i = index" style="min-width: 250px"> <!-- [style.margin-bottom.px]="i === gruposMusculares.length - 1 ? 100 : 100" [style.margin-top.px]="i === 0 ? 65 : 155" -->
+              <mat-card-header>
+                <mat-card-title-group>
+                  <mat-card-title style="margin: 10px;">{{grupoMusc.name}}</mat-card-title>
+                </mat-card-title-group>
+              </mat-card-header>
+              <mat-card-content style="display: block;">
+
+                <div class="carousel">
+                  <div *ngFor="let ejercicio of grupoMusc.ejercicios; let o = index" class="item">
+                    <mat-card  [ngClass]="{'slide-in-left': o % 2 === 0, 'slide-in-right': o % 2 !== 0}" class="example-card mat-card" style="height: 150px; width: 150px;"
+                      [style.margin-right.px]=" o === grupoMusc.ejercicios.length - 1 ? 0:10" (click)="viewEjercicio(i, o)">
+                        <mat-card-header>
+                          <mat-card-title-group>
+                            <mat-card-title style="margin: 0;">{{ejercicio.nombre}}</mat-card-title>
+                          </mat-card-title-group>
+                        </mat-card-header>
+                        <mat-card-content style="display: flex; justify-content: center; align-items: center;">
+                          <img [src]="ejercicio.url ? ejercicio.url : '/assets/img/no_photo.jpg'" alt="Imagen del ejercicio" style="width: 100px; border-radius: 10px; margin: 5px;">
+                        </mat-card-content>
+                      </mat-card>
+                  </div>
+                </div>
+
+                <div *ngIf="grupoMusc.ejercicios.length >= 3" style="width: 100%; justify-content: center; display: flex; margin-top: 5px;">
+                  <span style="font-size: small; color: rgb(172, 172, 172);" ><mat-icon>sync_alt</mat-icon>    Desliza</span>
+                </div>
+
+              </mat-card-content>
+            </mat-card>
+          </ng-container>
+
+      </div>
+
+    </div>
+
+    <div *ngIf="gruposMusculares.length === 0 && !errorMsg.e" class="alert-warning" style="height: 60px; width: 90%; align-items: center; padding-top: 30px; padding-left: 20px; border-radius: 10px;">
+      Parece que no hay ejercicios
+    </div>
+
+    <div *ngIf="errorMsg.e" class="alert-danger" style="height: 60px; width: 90%; align-items: center; padding-top: 30px; padding-left: 20px; border-radius: 10px;">
+      Error al cargar los ejercicios :
+      {{errorMsg.m}}
+    </div>
+
+  </div>
+
+
+</div>

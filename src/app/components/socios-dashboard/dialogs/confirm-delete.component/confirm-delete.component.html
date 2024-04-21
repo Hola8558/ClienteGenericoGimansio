@@ -1,0 +1,9 @@
+<h1 mat-dialog-title *ngIf="error === '' " style="background: rgba(21, 139, 21, 0.616);color: #fff;">¿Deseas eliminar la rutina antigua?</h1>
+<h1 mat-dialog-title *ngIf="error != '' " style="background: #cd9797;">Error al eliminar</h1>
+<div mat-dialog-content *ngIf="error != '' ">
+{{error}}
+</div>
+<div mat-dialog-actions style="display: flex; justify-content: space-between;">
+  <button mat-button (click)="onNoClick(true)" style="background: #e18d96; color: #fff;">No</button>
+  <button mat-button (click)="onNoClick(false)" style="background: #e18d96; color: #fff;" cdkFocusInitial>Si</button>
+</div>

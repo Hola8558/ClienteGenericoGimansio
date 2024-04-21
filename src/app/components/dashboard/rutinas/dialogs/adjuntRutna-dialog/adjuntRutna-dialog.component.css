@@ -1,0 +1,14 @@
+.last-option {
+  background-color: #e3ffdd; /* Cambia el color según tus necesidades */
+  /* Otros estilos para la última opción */
+}
+
+.selectRutina{
+  -webkit-box-shadow: -12px -13px 26px -5px rgba(89, 255, 56, 0.548);
+  -moz-box-shadow: -12px -13px 26px -5px rgba(89, 255, 56, 0.548);
+  box-shadow: -12px -13px 26px -5px rgba(89, 255, 56, 0.548);
+}
+
+.selectRutinaMobile{
+  background-color: #f5fff273;
+}

@@ -1,0 +1,10 @@
+<h1 mat-dialog-title *ngIf="error === '' " style="background: rgba(21, 139, 21, 0.616);color: #fff;">¿Estás seguro de eliminar este ususario?</h1>
+<h1 mat-dialog-title *ngIf="error != '' " style="background: #cd9797;">Error al eliminar</h1>
+<div mat-dialog-content *ngIf="error != '' ">
+{{error}}
+</div>
+<div mat-dialog-actions>
+  <button mat-button *ngIf="error === '' " (click)="onNoClick(false)">Cancelar</button>
+  <button mat-button *ngIf="error === '' " (click)="deleteUser()" style="background: #e18d96; color: #fff;" cdkFocusInitial>Eliminar</button>
+  <button mat-button *ngIf="error != '' " (click)="onNoClick(false)" style="background: #e18d96; color: #fff;" cdkFocusInitial>Aceptar</button>
+</div>
